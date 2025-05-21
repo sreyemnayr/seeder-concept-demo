@@ -213,8 +213,8 @@ export function Human({
       style={{
         opacity: isActive ? 1 : 0.1,
         transform: `scale(${
-          flip ? -1 * (isActive ? 1.5 : 1) : 1 * (isActive ? 1.5 : 1)
-        }, ${isActive ? 1.5 : 1})`,
+          flip ? -1 * (isActive ? 1.2 : 1) : 1 * (isActive ? 1.2 : 1)
+        }, ${isActive ? 1.2 : 1})`,
       }}
     >
       {/* SVG Container */}
@@ -275,7 +275,7 @@ export function Human({
       </div>
       {/* Character Label */}
       <div
-        className="mb-4 px-3 py-1.5 text-[3em]"
+        className="mb-4 px-3 text-[3em]"
         style={{ transform: `scale(${flip ? -1 : 1}, 1)` }} // Unflip the text
       >
         <div className="text-center">
