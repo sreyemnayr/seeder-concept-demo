@@ -13,11 +13,19 @@ const ensureHexColor = (color: string) => {
 
 interface BaseBodyPartProps {
   skinColor?: string;
+  clothingColor?: string;
+  accessoryColor?: string;
 }
 
-const Jacket2: React.FC<BaseBodyPartProps> = ({ skinColor = "#B28B67" }) => {
+const Jacket2: React.FC<BaseBodyPartProps> = ({
+  skinColor = "#B28B67",
+  clothingColor = "#FF9B21",
+  accessoryColor = "#323337",
+}) => {
   const validSkinColor = ensureHexColor(skinColor);
-
+  const validClothingColor = ensureHexColor(clothingColor);
+  const darkClothingColor = darken(0.1, validClothingColor);
+  const validAccessoryColor = ensureHexColor(accessoryColor);
 
   return (
     <g
@@ -35,18 +43,18 @@ const Jacket2: React.FC<BaseBodyPartProps> = ({ skinColor = "#B28B67" }) => {
       <path
         d="M123.280247,9.87718027 L131.765198,7.64600959 C152.120135,24.2050747 163.602366,67.2616718 176.61267,71.9556463 C188.913385,76.3936093 205.208593,69.6320097 224.503164,60.7390322 L231.796052,73.8353428 C215.409826,95.0000245 178.298612,114.916545 161.84294,106.839809 C135.533742,93.9267871 125.046804,40.501408 123.280247,9.87718027 Z"
         id="Coat-Back"
-        fill="#DB2721"
+        fill={darkClothingColor}
         transform="translate(177.538150, 58.161768) rotate(5.000000) translate(-177.538150, -58.161768) "
       />
       <path
         d="M90,114 C124.671756,114 150.175573,114 166.511451,114 C170.007634,114 169.348845,108.951637 168.84345,106.404206 C163.010588,77.0037663 140.241304,45.3115155 140.241304,3.4607303 L118.1718,0 C99.917485,29.3584068 93.6048263,65.5045499 90,114 Z"
         id="Shirt"
-        fill="#DDE3E9"
+        fill={validAccessoryColor}
       />
       <path
         d="M82.3687546,84.2331696 C66.7713811,112.367832 53.6609446,132.623442 43.0374452,145 L27,141.85882 C37.3305927,77.7906722 67.2466105,30.5043988 116.748053,3.81764932e-14 L117,2.9470116e-14 L125.486398,0 C145.298923,67.5369477 150.760885,112.536948 141.872285,135 L73,135 C74.0896281,118.56345 77.5833963,101.181199 82.3687561,84.2331662 Z"
         id="Coat-Front"
-        fill="#FF4133"
+        fill={validClothingColor}
       />
     </g>
   );

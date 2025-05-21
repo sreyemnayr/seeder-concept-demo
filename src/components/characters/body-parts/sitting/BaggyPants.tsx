@@ -1,5 +1,4 @@
 import React from "react";
-import { darken } from "polished";
 
 const ensureHexColor = (color: string) => {
   // If color is already a valid hex color, return it
@@ -13,18 +12,21 @@ const ensureHexColor = (color: string) => {
 
 interface BaseBodyPartProps {
   skinColor?: string;
-  shoeColor?: string;
+  accessoryColor?: string;
 }
 
 interface BottomProps extends BaseBodyPartProps {
   clothingColor?: string;
 }
 
-const BaggyPants: React.FC<BottomProps> = ({ clothingColor = "#7331FF", skinColor = "#B28B67", shoeColor = "#E4E4E4" }) => {
+const BaggyPants: React.FC<BottomProps> = ({
+  clothingColor = "#7331FF",
+  skinColor = "#B28B67",
+  accessoryColor = "#E4E4E4",
+}) => {
   const validClothingColor = ensureHexColor(clothingColor);
   const validSkinColor = ensureHexColor(skinColor);
-  const validShoeColor = ensureHexColor(shoeColor);
-
+  const validAccessoryColor = ensureHexColor(accessoryColor);
 
   return (
     <g
@@ -67,7 +69,7 @@ const BaggyPants: React.FC<BottomProps> = ({ clothingColor = "#7331FF", skinColo
       <g
         id="Accessories/Shoe/Flat-Sneaker"
         transform="translate(189.500000, 140.000000) rotate(30.000000) translate(-189.500000, -140.000000) translate(159.000000, 120.000000)"
-        fill={validShoeColor}
+        fill={validAccessoryColor}
       >
         <path
           d="M2.67813181,25.4019242 C1.55937727,28.3884109 1,30.6229931 1,32.1056708 C1,33.908957 1.3004142,36.5404001 1.90124261,40 C3.99318117,40 22.7937852,40 58.3030548,40 C59.768738,35.1545073 58.9226607,32.5385816 55.7648228,32.1522232 C52.606985,31.7658647 49.9837155,31.4170139 47.8950143,31.1056708 L21.6799926,19.4188835 C21.1755635,19.1940064 20.584344,19.4206282 20.359467,19.9250573 C20.35562,19.9336867 20.3518954,19.9423702 20.3482945,19.9511052 L18.6632131,24.038695 C15.7398812,25.4026522 13.3643706,26.0846307 11.5366811,26.0846307 C10.0517269,26.0846307 8.00099246,25.4849054 5.38447792,24.2854549 L5.38448339,24.285443 C4.38038273,23.8251478 3.19325534,24.2659892 2.73296014,25.2700899 C2.71312074,25.3133681 2.69483298,25.3573409 2.67813181,25.4019242 Z"
@@ -77,7 +79,7 @@ const BaggyPants: React.FC<BottomProps> = ({ clothingColor = "#7331FF", skinColo
       <g
         id="Accessories/Shoe/Flat-Sneaker"
         transform="translate(288.000000, 132.000000)"
-        fill={validShoeColor}
+        fill={validAccessoryColor}
       >
         <path
           d="M2.67813181,25.4019242 C1.55937727,28.3884109 1,30.6229931 1,32.1056708 C1,33.908957 1.3004142,36.5404001 1.90124261,40 C3.99318117,40 22.7937852,40 58.3030548,40 C59.768738,35.1545073 58.9226607,32.5385816 55.7648228,32.1522232 C52.606985,31.7658647 49.9837155,31.4170139 47.8950143,31.1056708 L21.6799926,19.4188835 C21.1755635,19.1940064 20.584344,19.4206282 20.359467,19.9250573 C20.35562,19.9336867 20.3518954,19.9423702 20.3482945,19.9511052 L18.6632131,24.038695 C15.7398812,25.4026522 13.3643706,26.0846307 11.5366811,26.0846307 C10.0517269,26.0846307 8.00099246,25.4849054 5.38447792,24.2854549 L5.38448339,24.285443 C4.38038273,23.8251478 3.19325534,24.2659892 2.73296014,25.2700899 C2.71312074,25.3133681 2.69483298,25.3573409 2.67813181,25.4019242 Z"

@@ -1,5 +1,5 @@
 import React from "react";
-import { darken } from "polished";
+// import { darken } from "polished";
 
 const ensureHexColor = (color: string) => {
   // If color is already a valid hex color, return it
@@ -19,10 +19,12 @@ interface BottomProps extends BaseBodyPartProps {
   clothingColor?: string;
 }
 
-const SkinnyJeans: React.FC<BottomProps> = ({ clothingColor = "#7331FF", hairColor = "#191847" }) => {
+const SkinnyJeans: React.FC<BottomProps> = ({
+  clothingColor = "#7331FF",
+  hairColor = "#191847",
+}) => {
   const validClothingColor = ensureHexColor(clothingColor);
   const validHairColor = ensureHexColor(hairColor);
-
 
   return (
     <g
