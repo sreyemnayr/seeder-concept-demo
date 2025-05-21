@@ -3,16 +3,24 @@
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
+type Speed = Parameters<typeof TypeAnimation>[0]["speed"];
+
 interface ThoughtBubbleProps {
   text: string;
   direction: "left" | "right";
   isTerminal?: boolean;
+  speed?: Speed;
+  delay?: number;
+  onComplete?: () => void;
 }
 
 export function ThoughtBubble({
   text,
   direction,
   isTerminal = false,
+  speed = 70,
+  delay = 1000,
+  onComplete = () => {},
 }: ThoughtBubbleProps) {
   return (
     <motion.div
@@ -49,11 +57,11 @@ export function ThoughtBubble({
           )}
 
           <TypeAnimation
-            sequence={[text]}
+            sequence={[text, delay, onComplete]}
             wrapper="div"
             cursor={true}
             repeat={0}
-            speed={70}
+            speed={speed}
           />
         </div>
       </div>

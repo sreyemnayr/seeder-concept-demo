@@ -57,8 +57,8 @@ interface StoryProps {
 
 export function Story({ story, onReturnToMenu }: StoryProps) {
   const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
-  const [autoAdvance, setAutoAdvance] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
+  const [autoAdvance, setAutoAdvance] = useState(false);
+  const [isPaused, setIsPaused] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
   const [totalSteps, setTotalSteps] = useState(0);
 
@@ -108,11 +108,19 @@ export function Story({ story, onReturnToMenu }: StoryProps) {
   };
 
   const handleNextStep = () => {
-    sceneRef.current?.nextStep();
+    if (currentStep < totalSteps - 1) {
+      sceneRef.current?.nextStep();
+    } else {
+      handleNextScene();
+    }
   };
 
   const handlePreviousStep = () => {
-    sceneRef.current?.previousStep();
+    if (currentStep > 0) {
+      sceneRef.current?.previousStep();
+    } else {
+      handlePreviousScene();
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

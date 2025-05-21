@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
+type Speed = Parameters<typeof TypeAnimation>[0]["speed"];
+
 interface ChatMessage {
   text: string;
   isNew?: boolean;
@@ -11,9 +13,17 @@ interface ChatMessage {
 
 interface ChatBubbleProps {
   messages: ChatMessage[];
+  speed?: Speed;
+  delay?: number;
+  onComplete?: () => void;
 }
 
-export function ChatBubble({ messages }: ChatBubbleProps) {
+export function ChatBubble({
+  messages,
+  speed = 70,
+  delay = 1000,
+  onComplete = () => {},
+}: ChatBubbleProps) {
   return (
     <motion.div
       className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[40%] bg-white rounded-lg shadow-lg p-4"
@@ -51,11 +61,11 @@ export function ChatBubble({ messages }: ChatBubbleProps) {
                   >
                     {message.isNew ? (
                       <TypeAnimation
-                        sequence={[message.text]}
+                        sequence={[message.text, delay, onComplete]}
                         wrapper="span"
                         cursor={message.isNew}
                         repeat={0}
-                        speed={70}
+                        speed={speed}
                       />
                     ) : (
                       message.text

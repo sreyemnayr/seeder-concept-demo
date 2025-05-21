@@ -218,17 +218,17 @@ export const celloStory: Story = {
         {
           character: "Sara",
           type: "speak",
-          text: "He was very nice, but his cello playing was just ok and he arrived late. So not sure we would work with him again as a musician, but he did offer his accounting services so we are going to take him up on that this month and see if it goes better.",
+          text: "He was very nice, and his cello playing was ok. Not sure we would work with him again as a musician, but he did offer his accounting services so we are going to take him up on that this month and see if it goes better.",
         },
         {
           character: "Seeder",
           type: "think",
-          text: "Processing review feedback...\nMusical performance: Below expectations\nPunctuality: Issue noted\nAccounting opportunity: Pending\nUpdating volunteer profile:\n- Reducing confidence in musical performance capability (70%)\n- Adding punctuality note\n- Scheduling follow-up for accounting engagement",
+          text: "Processing review feedback...\nMusical performance: Below expectations\nAccounting opportunity: Pending\nUpdating volunteer profile:\n- Reducing confidence in musical performance capability (70%)\n- Scheduling follow-up for accounting engagement",
         },
         {
           character: "Seeder",
           type: "speak",
-          text: "Understood. I've updated his biography to indicate a little less confidence in his musicianship. We will check back at the end of the month to see how you experience with him offering his accounting skills goes.",
+          text: "Understood. I've made a note that he won't be your first choice in the future for musical performances. We will check back at the end of the month to see how you experience with him offering his accounting skills goes.",
         },
       ],
     },
