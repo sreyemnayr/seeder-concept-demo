@@ -1,0 +1,849 @@
+{
+  "qualities": [
+    {
+      "label": "Social-Interaction Preference",
+      "description": "Person–social fit predicts satisfaction and retention.",
+      "response_scores": {
+        "1": "I really prefer to work completely on my own and avoid group interaction whenever possible.",
+        "2": "I’m okay chatting briefly, but I focus better when I’m mostly by myself.",
+        "3": "I can work alone or with others; it doesn’t make much difference to me.",
+        "4": "I get energy from small-team collaboration and like bouncing ideas off teammates.",
+        "5": "Put me where I’m constantly talking with the public or a big group—that’s where I thrive!"
+      },
+      "key_research": [
+        {
+          "citation": "Hackman & Oldham (1975)",
+          "url": "https://doi.org/10.1037/h0076546",
+          "paraphrase": "High-social fit boosts satisfaction; solitary‑preferring volunteers excel in independent roles."
+        },
+        {
+          "citation": "Humphrey et al. (2007)",
+          "url": "https://doi.org/10.1037/0021-9010.92.5.1332",
+          "paraphrase": "Jobs rich in social characteristics energise extraverts; low-interaction tasks suit introverts."
+        }
+      ],
+      "direct_question": "Do you prefer working alone, with teams, or somewhere in between?",
+      "reflection_scores": {
+        "1": "Working solo cataloging artifacts at the museum felt peaceful—I hardly spoke to anyone and loved it.",
+        "2": "During the letter‑writing drive I chatted politely but mostly kept my headphones on, which suited me.",
+        "3": "At the soup kitchen I shifted between prepping alone and serving guests—either mode was fine.",
+        "4": "Building tiny homes with a four‑person crew was a blast; we riffed ideas all afternoon.",
+        "5": "Running the festival game booth, I thrived on greeting a new family every minute."
+      }
+    },
+    {
+      "label": "Autonomy Threshold",
+      "description": "Matching preference for structure vs autonomy needs prevents disengagement or confusion.",
+      "response_scores": {
+        "1": "I need clear step-by-step instructions; open-ended tasks stress me out.",
+        "2": "I like guidance and periodic check-ins to stay on track.",
+        "3": "Some guidelines are helpful, but I’m comfortable filling in gaps.",
+        "4": "Give me the goal and I’ll figure out how to get there.",
+        "5": "I love total freedom—just point me at the problem and let me run with it."
+      },
+      "key_research": [
+        {
+          "citation": "Hackman & Oldham (1975)",
+          "url": "https://doi.org/10.1037/h0076546",
+          "paraphrase": "High-social fit boosts satisfaction; solitary‑preferring volunteers excel in independent roles."
+        },
+        {
+          "citation": "Morgeson & Humphrey (2006)",
+          "url": "https://doi.org/10.1037/0021-9010.91.6.1321",
+          "paraphrase": "Autonomy seekers thrive in loosely scripted projects; structure seekers prefer detailed SOPs."
+        }
+      ],
+      "direct_question": "How much freedom versus detailed direction do you prefer?",
+      "reflection_scores": {
+        "1": "At a donation sort I wasn’t given instructions and kept asking what to do next—very frustrating.",
+        "2": "Packing meal boxes came with a clear checklist and supervisor check‑ins—I liked the guidance.",
+        "3": "During a beach cleanup the plan was vague but we figured out zones ourselves and it worked.",
+        "4": "For the voter‑registration drive they shared the goal, then let us design scripts—super motivating.",
+        "5": "Coordinating the park rebuild, we finished early and improvised extra improvements on the spot."
+      }
+    },
+    {
+      "label": "Novelty Preference",
+      "description": "Variety motivates some volunteers, routine comforts others.",
+      "response_scores": {
+        "1": "Repetitive, predictable work is perfect for me.",
+        "2": "I like a routine with just a little variation.",
+        "3": "A balance of routine and new challenges keeps me engaged.",
+        "4": "I feel energized when every day looks a bit different.",
+        "5": "I seek out projects where I can invent creative solutions from scratch."
+      },
+      "key_research": [
+        {
+          "citation": "Morgeson & Humphrey (2006)",
+          "url": "https://doi.org/10.1037/0021-9010.91.6.1321",
+          "paraphrase": "Autonomy seekers thrive in loosely scripted projects; structure seekers prefer detailed SOPs."
+        }
+      ],
+      "direct_question": "Do you prefer repetitive, predictable tasks or ones that change and require creativity?",
+      "reflection_scores": {
+        "1": "Folding 3,000 flyers one after another was oddly soothing—I enjoyed the rhythm.",
+        "2": "Data‑entry day was repetitive but small variations in forms kept me from zoning out.",
+        "3": "On the school garden project I alternated digging, planting, and planning lessons—nice mix.",
+        "4": "At the maker fair help desk every question was different, which energized me all shift.",
+        "5": "Designing a mural with community input pushed me to invent fresh ideas hour by hour—loved it."
+      }
+    },
+    {
+      "label": "Environmental Threshold",
+      "description": "Comfort with conditions reduces turnover in specific settings.",
+      "response_scores": {
+        "1": "I really need a quiet indoor space with climate control.",
+        "2": "I can handle brief outdoor tasks, but I’d rather stay inside.",
+        "3": "Indoor or outdoor is fine if conditions aren’t extreme.",
+        "4": "I enjoy being outdoors, even if the weather’s unpredictable.",
+        "5": "Rain, heat, crowds—bring it on! I love active outdoor settings."
+      },
+      "key_research": [
+        {
+          "citation": "Allen & Mueller (2013)",
+          "url": "",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "Are you comfortable working outdoors, in crowds, or in varying weather?",
+      "reflection_scores": {
+        "1": "Working an outdoor concert in humid heat wiped me out—I needed AC breaks.",
+        "2": "I joined a tree planting but ducked back to the shade every 30 minutes to cool off.",
+        "3": "Marshalling a 10K on a mild morning felt comfortable; extremes would test me.",
+        "4": "Trail restoration in light rain was invigorating—mud doesn’t bother me.",
+        "5": "Guiding night kayak tours in chilly drizzle had me grinning the whole time."
+      }
+    },
+    {
+      "label": "Meticulousness",
+      "description": "High-detail volunteers excel at data or kit assembly.",
+      "response_scores": {
+        "1": "Big-picture brainstorming is my thing; tiny details lose me.",
+        "2": "I can handle details when required, but I’d rather someone else double-checks.",
+        "3": "I’m reasonably attentive to details when needed.",
+        "4": "Catching small errors is satisfying—I notice inconsistencies quickly.",
+        "5": "I’m meticulous; I spot a misplaced comma from a mile away."
+      },
+      "key_research": [
+        {
+          "citation": "Barrick, Mount & Li (2013)",
+          "url": "https://doi.org/10.5465/amr.2011.0479",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How much do you enjoy focusing on small details and catching errors?",
+      "reflection_scores": {
+        "1": "When proofreading newsletters I missed several typos and got impatient.",
+        "2": "Stuffing gift bags, I managed counts but asked someone else to verify extras.",
+        "3": "Entering survey data, I stayed accurate by following the template closely.",
+        "4": "Reconciling donation receipts, I spotted two transposed digits and fixed them.",
+        "5": "Auditing 1,200 inventory lines, I caught a single missing barcode—very satisfying!"
+      }
+    },
+    {
+      "label": "Emotional-Labor Threshold",
+      "description": "Comfort with empathy-heavy roles prevents burnout.",
+      "response_scores": {
+        "1": "I struggle hearing heavy personal stories; it weighs on me.",
+        "2": "I can listen briefly, but intense emotions are hard for me.",
+        "3": "I’m okay offering support in moderation.",
+        "4": "People often open up to me, and I handle it well.",
+        "5": "I’m at my best providing calm, compassionate support in tough situations."
+      },
+      "key_research": [
+        {
+          "citation": "Maslach & Jackson (1981)",
+          "url": "https://doi.org/10.1002/job.4030020205",
+          "paraphrase": "Low‑burnout volunteers suit crisis or hospice posts; higher‑burnout risk volunteers fit one‑off tasks."
+        },
+        {
+          "citation": "Claxton-Oldfield (2014)",
+          "url": "https://doi.org/10.1037/t25190-000",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How comfortable are you listening to others’ worries or working with vulnerable populations?",
+      "reflection_scores": {
+        "1": "During crisis‑line training the role‑play caller cried and I completely froze.",
+        "2": "Chatting with nursing‑home residents was sweet but after an hour I felt drained.",
+        "3": "Youth mentoring had rough moments, but with guidance I handled most situations.",
+        "4": "Hospice visits were heavy yet I could stay present and helpful for families.",
+        "5": "After wildfires I spent the night listening to evacuees’ stories and felt purposeful, not worn out."
+      }
+    },
+    {
+      "label": "Commitment Threshold",
+      "description": "Matching pace preference sustains motivation.",
+      "response_scores": {
+        "1": "One-off events work; I can’t commit regularly.",
+        "2": "Short projects of a few weeks suit me better than ongoing roles.",
+        "3": "Either episodic or long-term is fine.",
+        "4": "I like steady, weekly commitments I can plan around.",
+        "5": "Long-term roles where I can invest for months or years really appeal to me."
+      },
+      "key_research": [
+        {
+          "citation": "Handy et al. (2010)",
+          "url": "https://doi.org/10.1177/0899764009344353",
+          "paraphrase": "Short‑term altruists excel at pop‑up events; civic‑identity volunteers excel in long‑term mentoring."
+        }
+      ],
+      "direct_question": "Do you enjoy quick one-off events or steady long-term commitments?",
+      "reflection_scores": {
+        "1": "Drop‑in river cleanups are perfect—I’m wary of repeating weekly commitments.",
+        "2": "A month‑long book drive was fine, but I was ready to move on after results.",
+        "3": "Six‑week tax‑prep season kept me engaged without feeling endless.",
+        "4": "I’ve served every Tuesday at the pantry for two years—it’s part of my routine.",
+        "5": "I’ve been a Big Sister for eight years; watching my mentee grow is priceless."
+      }
+    },
+    {
+      "label": "Skill-Building Threshold",
+      "description": "Aligning growth goals increases retention and benefit.",
+      "response_scores": {
+        "1": "I want to use my existing skillset; I’m not looking to learn new skills right now.",
+        "2": "If I have to learn a simple skill, fine, but I’m not actively seeking it.",
+        "3": "I’m open to learning when needed.",
+        "4": "I’d like to build new skills if the opportunity arises.",
+        "5": "I’m eager to grow my resume and gain certifications through volunteering."
+      },
+      "key_research": [
+        {
+          "citation": "Clary et al. (1998)",
+          "url": "https://doi.org/10.1037/0022-3514.74.6.1516",
+          "paraphrase": "Growth‑oriented volunteers seek leadership or skill‑building roles; helpers enjoy steady support duties."
+        }
+      ],
+      "direct_question": "Are you hoping to build new skills through volunteering?",
+      "reflection_scores": {
+        "1": "I was able to use my existing knowledge without having to learn anything new.",
+        "2": "It was challenging, but I was able to learn the process.",
+        "3": "I didn't expect to have to, but enjoyed picking up new skills on the fly.",
+        "4": "Observing the leader, I quickly learned the ropes and was ready to work independently.",
+        "5": "I taught myself to code so that I could teach the kids in my neighborhood last summer."
+      }
+    },
+    {
+      "label": "Values-Alignment",
+      "description": "Value congruence leads to deeper role identity.",
+      "response_scores": {
+        "1": "I’m not passionate about any specific cause; I’ll help wherever.",
+        "2": "I have mild preferences, but nothing strong.",
+        "3": "A good match with my values is nice but not essential.",
+        "4": "I prefer roles tied to my top causes.",
+        "5": "I feel called to one mission—if it advances that, I’m all in."
+      },
+      "key_research": [
+        {
+          "citation": "Chacón et al. (2017)",
+          "url": "https://doi.org/10.1007/s11266-016-9824-3",
+          "paraphrase": "Strong value match -> mission‑centric roles; low alignment -> general event support."
+        }
+      ],
+      "direct_question": "Which mission areas excite you most?",
+      "reflection_scores": {
+        "1": "I jump into any volunteer spot that needs hands—cause doesn’t matter much to me.",
+        "2": "I lean toward community events, but I’m open to almost anything helpful.",
+        "3": "I try to choose projects that align with my environmental values when possible.",
+        "4": "I usually accept opportunities tied to conservation or climate action.",
+        "5": "If it’s not advancing climate justice, I politely pass—the planet is my mission."
+      }
+    },
+    {
+      "label": "Public Recognition Preference",
+      "description": "Fitting acknowledgement style maintains motivation.",
+      "response_scores": {
+        "1": "Public praise makes me uncomfortable; email thanks is plenty.",
+        "2": "Private acknowledgment is nice; big announcements aren’t necessary.",
+        "3": "Either public or private thanks is fine.",
+        "4": "I appreciate being recognized in front of the team.",
+        "5": "I’m motivated by awards and public shout-outs—celebrate the wins loudly!"
+      },
+      "key_research": [
+        {
+          "citation": "Deci & Ryan (2000)",
+          "url": "https://doi.org/10.1016/b978-012619070-0/50024-6",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How do you like to hear that you’re doing a good job?",
+      "reflection_scores": {
+        "1": "They surprised me with a stage shout‑out—most embarrassing moment ever.",
+        "2": "A simple thank‑you email after the shift is perfect for me.",
+        "3": "Public or private thanks both feel nice; I don’t mind either way.",
+        "4": "Getting called out at the volunteer luncheon boosted my motivation.",
+        "5": "Receiving the citywide ‘Volunteer of the Year’ award made me beam for weeks."
+      }
+    },
+    {
+      "label": "Ambiguity Threshold",
+      "description": "Blank-slate projects need high ambiguity tolerance.",
+      "response_scores": {
+        "1": "Unclear goals frustrate me.",
+        "2": "I prefer clear parameters, but can handle some unknowns.",
+        "3": "I’m fine as long as basics are set.",
+        "4": "I enjoy figuring things out as we go.",
+        "5": "I thrive when the path is undefined."
+      },
+      "key_research": [
+        {
+          "citation": "Budner (1962)",
+          "url": "https://doi.org/10.1111/j.1467-6494.1962.tb02303.x",
+          "paraphrase": "High ambiguity tolerance → open‑ended design; low tolerance → tightly defined tasks."
+        }
+      ],
+      "direct_question": "How do you feel when goals are still evolving?",
+      "reflection_scores": {
+        "1": "An unstructured art day left me anxious—I needed clearer goals.",
+        "2": "I prefer knowing the plan, though a few unknowns are okay.",
+        "3": "At a pop‑up clinic the basics were clear; we adapted details fine.",
+        "4": "Running a hackathon, I enjoyed troubleshooting as surprises cropped up.",
+        "5": "Starting a new program from scratch with no blueprint was exhilarating."
+      }
+    },
+    {
+      "label": "Digital-Tool Confidence",
+      "description": "Determines suitability for online or data tasks.",
+      "response_scores": {
+        "1": "I avoid new software whenever possible.",
+        "2": "I can use basics but prefer sticking to what I know.",
+        "3": "I’m comfortable learning tools with support.",
+        "4": "I pick up most platforms quickly.",
+        "5": "I pick up digital platforms instantly and teach others."
+      },
+      "key_research": [
+        {
+          "citation": "Rotman et al. (2012)",
+          "url": "https://doi.org/10.4000/books.cvz.1121",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How comfortable are you learning new digital tools?",
+      "reflection_scores": {
+        "1": "Confronted with new software, I panic and look for paper forms.",
+        "2": "I can navigate email and Word but prefer sticking to what I know.",
+        "3": "With a quick tutorial I learn new platforms just fine.",
+        "4": "I picked up the CRM in an afternoon and taught others the next day.",
+        "5": "I built an automated dashboard to streamline the whole team’s workflow."
+      }
+    },
+    {
+      "label": "Conflict Threshold",
+      "description": "Mediators fit complaint desks; conflict-averse volunteers may not.",
+      "response_scores": {
+        "1": "I shy away from confrontation whenever possible.",
+        "2": "I try to keep the peace but rarely mediate.",
+        "3": "I can step in if needed, though it’s not my strength.",
+        "4": "I’m comfortable facilitating discussions.",
+        "5": "Mediating disputes is one of my strengths."
+      },
+      "key_research": [
+        {
+          "citation": "Thomas & Kilmann (1974)",
+          "url": "https://doi.org/10.1037/t02326-000",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "Tell me about a time you resolved a disagreement.",
+      "reflection_scores": {
+        "1": "When tension rose at the info booth, I kept my distance until it passed.",
+        "2": "I usually try to smooth things over but avoid direct confrontation.",
+        "3": "In a scheduling mix‑up I mediated reluctantly; it turned out okay.",
+        "4": "I facilitated a debate between two partner orgs and we reached consensus.",
+        "5": "Volunteers call me to defuse heated arguments—I enjoy guiding resolution."
+      }
+    },
+    {
+      "label": "Public-Speaking Threshold",
+      "description": "Essential for tours, facilitation, emceeing.",
+      "response_scores": {
+        "1": "Speaking to groups terrifies me.",
+        "2": "I get nervous but can manage short announcements.",
+        "3": "I’m fine with small groups; large crowds are harder.",
+        "4": "I enjoy presenting to most audiences.",
+        "5": "Give me the mic any time!"
+      },
+      "key_research": [
+        {
+          "citation": "Beatty & Behnke (1990)",
+          "url": "https://doi.org/10.1016/s0160-9327(05)80075-4",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How do you feel about speaking to groups?",
+      "reflection_scores": {
+        "1": "Even thinking about a microphone makes my stomach flip.",
+        "2": "I can give short announcements if I rehearse thoroughly.",
+        "3": "Talking to small groups feels fine; large auditoriums still scare me.",
+        "4": "I enjoy presenting to classes and mid‑size audiences.",
+        "5": "Give me a stage and spotlight—I thrive on energizing big crowds."
+      }
+    },
+    {
+      "label": "Multilingual Confidence",
+      "description": "Enables translation or liaison roles.",
+      "response_scores": {
+        "1": "I only speak English.",
+        "2": "I know a few phrases in another language.",
+        "3": "I can hold casual conversations in a second language.",
+        "4": "I’m conversationally fluent and can assist informally.",
+        "5": "I’m fully fluent and can translate on the fly."
+      },
+      "key_research": [
+        {
+          "citation": "Putnam & Skocpol (2020)",
+          "url": "https://doi.org/10.1093/oso/9780190083526.003.0013",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "Which languages do you speak and at what level?",
+      "reflection_scores": {
+        "1": "I only speak English, so I stay clear of translation roles.",
+        "2": "I know travel phrases in Spanish but not enough to converse.",
+        "3": "I can chat casually in French and help greet visitors.",
+        "4": "I’m conversationally fluent in Vietnamese and often interpret informally.",
+        "5": "I’m fully bilingual and can translate documents on the spot."
+      }
+    },
+    {
+      "label": "Cross-cultural Threshold",
+      "description": "Predicts success in multicultural programs.",
+      "response_scores": {
+        "1": "I have limited experience with diverse groups.",
+        "2": "I’ve interacted occasionally but not extensively.",
+        "3": "I’m generally comfortable in diverse settings.",
+        "4": "I actively seek multicultural experiences and adapt well.",
+        "5": "I comfortably navigate many cultures and mediate differences."
+      },
+      "key_research": [
+        {
+          "citation": "Earley & Ang (2003)",
+          "url": "https://doi.org/10.1515/9780804766005",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "Describe your experience working with diverse cultures.",
+      "reflection_scores": {
+        "1": "I haven’t had much experience outside my own community.",
+        "2": "I’ve worked with diverse groups occasionally but still learning.",
+        "3": "I’m generally comfortable in multicultural settings.",
+        "4": "I actively seek multicultural projects and adapt easily.",
+        "5": "I navigate multiple cultures daily and mediate misunderstandings gracefully."
+      }
+    },
+    {
+      "label": "Transportation access",
+      "description": "Critical for roles requiring travel.",
+      "response_scores": {
+        "1": "I rely solely on limited public transit.",
+        "2": "I can get rides but scheduling is tricky.",
+        "3": "I have public transit access that usually works.",
+        "4": "I have a bike or shared car I can use regularly.",
+        "5": "I have my own car and can drive anywhere, anytime."
+      },
+      "key_research": [
+        {
+          "citation": "Snyder & Omoto (2008)",
+          "url": "https://doi.org/10.1111/j.1751-2409.2008.00009.x",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "Do you have reliable transportation?",
+      "reflection_scores": {
+        "1": "I rely on limited‑route buses; evening shifts are tough.",
+        "2": "I can catch rides sometimes, but schedules are tricky.",
+        "3": "I have decent transit access that usually works.",
+        "4": "I bike or use car‑share regularly to reach sites.",
+        "5": "I have my own car and can haul supplies anywhere anytime."
+      }
+    },
+    {
+      "label": "Ideation Threshold",
+      "description": "Visionaries vs. logisticians thrive in different phases.",
+      "response_scores": {
+        "1": "I prefer following detailed plans that others create.",
+        "2": "I can suggest tweaks but mostly like executing.",
+        "3": "I enjoy a mix of planning and implementing.",
+        "4": "I like brainstorming and then seeing things through.",
+        "5": "I love ideating bold new projects from scratch."
+      },
+      "key_research": [
+        {
+          "citation": "Mumford et al. (2002)",
+          "url": "",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "Do you prefer brainstorming new ideas or executing detailed plans?",
+      "reflection_scores": {
+        "1": "Give me a clear checklist—I’m uncomfortable brainstorming new ideas.",
+        "2": "I’ll suggest tweaks, but prefer executing established plans.",
+        "3": "I enjoy mixing planning sessions with hands‑on execution.",
+        "4": "I brainstorm concepts then love seeing them through to completion.",
+        "5": "I thrive on dreaming up bold new initiatives from a blank slate."
+      }
+    },
+    {
+      "label": "Physical-Risk Threshold",
+      "description": "High-risk volunteers suit wilderness SAR.",
+      "response_scores": {
+        "1": "I stick to very safe environments.",
+        "2": "I accept minor physical risk with safeguards.",
+        "3": "Moderate risk is okay if precautions are clear.",
+        "4": "I’m comfortable with significant risk when trained.",
+        "5": "I’m comfortable with high-risk rescue work."
+      },
+      "key_research": [
+        {
+          "citation": "Zuckerman (1994)",
+          "url": "https://doi.org/10.1037/t13952-000",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "What level of physical risk are you comfortable with in volunteer work?",
+      "reflection_scores": {
+        "1": "I stick to safe indoor roles—heights or hazards scare me.",
+        "2": "I’ll accept minor physical risk with proper safety gear.",
+        "3": "Moderate risk is fine if precautions are clear and training provided.",
+        "4": "I volunteered for controlled burns after certification—it was exciting.",
+        "5": "I join wilderness SAR teams and stay calm in high‑risk rescues."
+      }
+    },
+    {
+      "label": "Physical Stamina Threshold",
+      "description": "Endurance needed for active roles.",
+      "response_scores": {
+        "1": "Standing an hour tires me.",
+        "2": "I can manage a couple of hours of light activity.",
+        "3": "I’m fine with half-day moderate activity.",
+        "4": "I can be active all day with short breaks.",
+        "5": "I can hike all day carrying gear."
+      },
+      "key_research": [
+        {
+          "citation": "Andersen et al. (2015)",
+          "url": "",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How long can you remain on your feet or engage in physical activity?",
+      "reflection_scores": {
+        "1": "Standing an hour had my back aching—I needed frequent breaks.",
+        "2": "I can manage a few hours of light activity before tiring.",
+        "3": "Half‑day moderate work like painting keeps me comfortable.",
+        "4": "I can haul lumber all day with short water breaks.",
+        "5": "I hiked twenty miles carrying gear for the trail survey and loved it."
+      }
+    },
+    {
+      "label": "Attention Threshold",
+      "description": "Certain tasks need long focus blocks.",
+      "response_scores": {
+        "1": "I need frequent breaks to stay focused.",
+        "2": "I can manage 30-minute focus blocks.",
+        "3": "I can focus about an hour comfortably.",
+        "4": "I can stay engaged for several hours with minimal breaks.",
+        "5": "I can concentrate intensely for hours at a time."
+      },
+      "key_research": [
+        {
+          "citation": "Parasuraman & Davies (1977)",
+          "url": "https://doi.org/10.1007/978-1-4684-2529-1_26",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How long can you focus without a break?",
+      "reflection_scores": {
+        "1": "After 15 minutes of data entry my focus drifts badly.",
+        "2": "I can do 30‑minute focus blocks, then need a stretch.",
+        "3": "I worked an hour per batch scanning forms and stayed accurate.",
+        "4": "I monitored a hotline for four hours and remained attentive.",
+        "5": "I reviewed grant proposals for six straight hours without losing sharpness."
+      }
+    },
+    {
+      "label": "Stress Threshold",
+      "description": "Crisis lines require calm responders.",
+      "response_scores": {
+        "1": "I get flustered easily under pressure.",
+        "2": "I manage stress but feel drained quickly.",
+        "3": "I cope adequately with average stress.",
+        "4": "People say I’m calm in tough situations.",
+        "5": "Crisis situations bring out my best focus and calm."
+      },
+      "key_research": [
+        {
+          "citation": "Lazarus & Folkman (1984)",
+          "url": "https://doi.org/10.1037/t06129-000",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How do you typically react under pressure?",
+      "reflection_scores": {
+        "1": "When a shipment was late I panicked and needed someone else to handle it.",
+        "2": "Unexpected problems rattle me, but I regain composure with help.",
+        "3": "I stay level‑headed through normal bumps but major crises test me.",
+        "4": "During a power outage I calmly reorganized tasks and kept morale up.",
+        "5": "In the hurricane shelter I coordinated resources calmly for 48 hours."
+      }
+    },
+    {
+      "label": "Sensory Threshold",
+      "description": "Helps place volunteers in suitable environments.",
+      "response_scores": {
+        "1": "Loud, busy places overwhelm me.",
+        "2": "I manage short exposures but then need quiet.",
+        "3": "I’m okay with moderate noise or crowds.",
+        "4": "I’m comfortable in most sensory environments.",
+        "5": "Crowds and noise don’t bother me at all."
+      },
+      "key_research": [
+        {
+          "citation": "Dunn (1997)",
+          "url": "https://doi.org/10.21236/ada336097",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How do you handle loud, bright, or crowded environments?",
+      "reflection_scores": {
+        "1": "Crowded, noisy fairs overwhelm me—I avoid them.",
+        "2": "I can handle short stints in loud spaces with earplugs.",
+        "3": "Moderate noise or crowds don’t bother me much.",
+        "4": "I’m comfortable in most sensory environments, even concerts.",
+        "5": "I thrive amid bustling festivals and bright lighting—it energizes me."
+      }
+    },
+    {
+      "label": "Handiness Threshold",
+      "description": "Handy volunteers fit build or repair tasks.",
+      "response_scores": {
+        "1": "I’m clumsy with tools.",
+        "2": "I can manage simple tasks with guidance.",
+        "3": "I’m competent with common tools.",
+        "4": "I’m skilled at assembling or crafting items.",
+        "5": "I can assemble complex kits quickly and teach others."
+      },
+      "key_research": [
+        {
+          "citation": "Fine & Gross (2015)",
+          "url": "",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How comfortable are you with hands-on assembly or tool use?",
+      "reflection_scores": {
+        "1": "Assembling kits is tough—I fumble with small parts.",
+        "2": "With guidance I can manage simple builds like birdhouses.",
+        "3": "I’m handy with basic tools and furniture assembly.",
+        "4": "I rewired donated lamps and taught others the steps.",
+        "5": "I restored vintage bikes, truing wheels and adjusting gears flawlessly."
+      }
+    },
+    {
+      "label": "Leadership Aspiration",
+      "description": "Aligning leadership goals increases retention and benefit.",
+      "response_scores": {
+        "1": "I prefer not to supervise anyone.",
+        "2": "I might lead occasionally but prefer support roles.",
+        "3": "I’m open to small leadership tasks.",
+        "4": "I’d enjoy leading a small team regularly.",
+        "5": "I’m eager to manage large volunteer teams."
+      },
+      "key_research": [
+        {
+          "citation": "Kouzes & Posner (2017)",
+          "url": "https://doi.org/10.1002/tsr.30268",
+          "paraphrase": ""
+        },
+        {
+          "citation": "Clary et al. (1998)",
+          "url": "https://doi.org/10.1037/0022-3514.74.6.1516",
+          "paraphrase": "Growth‑oriented volunteers seek leadership or skill‑building roles; helpers enjoy steady support duties."
+        }
+      ],
+      "direct_question": "Are you interested in supervising other volunteers?",
+      "reflection_scores": {
+        "1": "I prefer supporting roles; leadership isn’t for me.",
+        "2": "I’ll lead occasionally but don’t seek responsibility.",
+        "3": "I’m open to small‑team leadership tasks.",
+        "4": "I enjoy managing a team and giving feedback regularly.",
+        "5": "I aim to oversee large volunteer programs and mentor new leaders."
+      }
+    },
+    {
+      "extra_questions": true,
+      "label": "Leadership Aspiration",
+      "response_scores": {
+        "1": "I’m happy supporting; I’m not looking to lead right now.",
+        "2": "If leadership happens naturally, fine, but I’m not actively seeking it.",
+        "3": "I’m open to minor leadership if it fits.",
+        "4": "I’d like to co-lead a team soon.",
+        "5": "I’m eager to lead projects and teams."
+      },
+      "direct_question": "Are you hoping to lead projects through volunteering?",
+      "reflection_scores": {
+        "1": "Give me a task list and I’m happy—I’d rather not coordinate anyone.",
+        "2": "I’ll step up to lead if asked, but I don’t seek it out.",
+        "3": "I co‑led a science‑fair booth.",
+        "4": "After shadowing the site manager last season, I now train incoming volunteers.",
+        "5": "I built a coding club curriculum and now mentor other mentors across the city."
+      }
+    },
+    {
+      "label": "Privacy Threshold",
+      "description": "Needed for roles with confidential data.",
+      "response_scores": {
+        "1": "I’m unfamiliar with confidentiality rules.",
+        "2": "I know basics but might need reminders.",
+        "3": "I follow standard privacy practices.",
+        "4": "I’m diligent and keep records secure.",
+        "5": "I’m meticulous about safeguarding data and train others."
+      },
+      "key_research": [
+        {
+          "citation": "HIPAA training studies",
+          "url": "",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "What steps do you take to protect sensitive information?",
+      "reflection_scores": {
+        "1": "I’m not familiar with confidentiality requirements and might slip up.",
+        "2": "I know basics but need reminders about secure files.",
+        "3": "I follow standard privacy steps like locking cabinets.",
+        "4": "I encrypt drives and remind peers about confidentiality.",
+        "5": "I drafted our nonprofit’s data‑protection policy and train everyone."
+      }
+    },
+    {
+      "label": "Emergency Response Threshold",
+      "description": "Places volunteers in medical support roles.",
+      "response_scores": {
+        "1": "I’m not trained in first aid.",
+        "2": "I took a course years ago but it’s expired.",
+        "3": "I’m currently basic first-aid certified.",
+        "4": "I’m CPR certified and confident assisting.",
+        "5": "I’m EMT certified with active license."
+      },
+      "key_research": [
+        {
+          "citation": "American Red Cross reports",
+          "url": "",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "Do you hold any current first-aid certifications?",
+      "reflection_scores": {
+        "1": "I’ve never taken a first‑aid class.",
+        "2": "I took CPR years ago but my card expired.",
+        "3": "I’m currently basic first‑aid certified and carry a kit.",
+        "4": "I’m CPR/AED certified and assisted in a real emergency once.",
+        "5": "I’m a licensed EMT and volunteer at race medical tents regularly."
+      }
+    },
+    {
+      "label": "Educative Threshold",
+      "description": "Guides placement in tutoring or training.",
+      "response_scores": {
+        "1": "I’ve never taught or coached.",
+        "2": "I’ve helped friends informally.",
+        "3": "I have occasional tutoring experience.",
+        "4": "I’ve tutored or coached regularly.",
+        "5": "I have years of teaching and mentoring experience."
+      },
+      "key_research": [
+        {
+          "citation": "Eby et al. (2013)",
+          "url": "",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "Describe your experience teaching or coaching others.",
+      "reflection_scores": {
+        "1": "I’ve never taught anyone outside informal chats.",
+        "2": "I helped friends study but no formal mentoring.",
+        "3": "I tutored elementary math a few times.",
+        "4": "I mentored new hires monthly at my old job.",
+        "5": "I’ve run multi‑year youth leadership programs with dozens of mentees."
+      }
+    },
+    {
+      "label": "Flexibility Threshold",
+      "description": "Dynamic events need adaptable volunteers.",
+      "response_scores": {
+        "1": "Last-minute changes stress me.",
+        "2": "I can adapt but prefer advance notice.",
+        "3": "I adjust when needed with minimal fuss.",
+        "4": "I’m comfortable pivoting plans quickly.",
+        "5": "I thrive when plans shift unexpectedly."
+      },
+      "key_research": [
+        {
+          "citation": "Beal et al. (2003)",
+          "url": "",
+          "paraphrase": ""
+        }
+      ],
+      "direct_question": "How do you handle last-minute changes to plans?",
+      "reflection_scores": {
+        "1": "When plans shift last minute I feel stressed and need direction.",
+        "2": "I can adapt, but prefer advance notice to prepare.",
+        "3": "I adjust on the fly with minimal fuss when things change.",
+        "4": "I often volunteer for roles precisely because they’re unpredictable.",
+        "5": "I thrive in chaos—rewriting plans mid‑event excites me."
+      }
+    },
+    {
+      "label": "Chronotype",
+      "description": "Knowing peak alertness helps schedule volunteers when they’re most effective.",
+      "direct_question": "When during the day do you feel most alert and productive?",
+      "response_scores": {
+        "1": "Early morning (sunrise) is when I’m at my sharpest.",
+        "2": "Late morning is my best time.",
+        "3": "I’m equally alert morning and afternoon.",
+        "4": "Evenings are when I feel most energetic.",
+        "5": "Late night is when I hit peak focus."
+      },
+      "reflection_scores": {
+        "1": "Those 6AM breakfast shifts were my jam—I’m sharpest at dawn.",
+        "2": "I feel best mid‑morning; 10AM start times suit me.",
+        "3": "My energy peaks mid‑day—morning or afternoon both work.",
+        "4": "Evening tutoring sessions after 6PM are where I shine.",
+        "5": "I loved the midnight crisis‑line—late night is my creative peak."
+      },
+      "key_research": [
+        {
+          "citation": "Roenneberg et al. (2003)",
+          "url": "https://doi.org/10.1037/t76847-000",
+          "paraphrase": ""
+        }
+      ]
+    },
+    {
+      "label": "Time-of-Day Threshold",
+      "description": "Indicates how willing a volunteer is to work outside their peak chronotypical alertness time.",
+      "direct_question": "How important is working at your preferred time of day?",
+      "response_scores": {
+        "1": "I really only work well at my chosen time of day.",
+        "2": "I’m noticeably less effective outside my peak hours.",
+        "3": "I try to schedule close to my peak when possible.",
+        "4": "I prefer my peak time but can adjust easily.",
+        "5": "I’m fine volunteering any time of day."
+      },
+      "reflection_scores": {
+        "1": "I declined roles that didn’t match my preferred hours.",
+        "2": "When I had to work outside my peak, my performance dipped.",
+        "3": "I was a bit slower on late shifts but got the job done.",
+        "4": "I managed okay on afternoon shifts even though I’m a morning person.",
+        "5": "I’ve taken shifts at all hours without issue."
+      },
+      "key_research": [
+        {
+          "citation": "Roenneberg et al. (2003)",
+          "url": "https://doi.org/10.1037/t76847-000",
+          "paraphrase": ""
+        }
+      ]
+    }
+  ]
+}
