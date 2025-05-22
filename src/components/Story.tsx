@@ -57,8 +57,8 @@ interface StoryProps {
 
 export function Story({ story, onReturnToMenu }: StoryProps) {
   const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
-  const [autoAdvance, setAutoAdvance] = useState(false);
-  const [isPaused, setIsPaused] = useState(true);
+  const [autoAdvance, setAutoAdvance] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [totalSteps, setTotalSteps] = useState(0);
 

@@ -1,34 +1,14 @@
 import React from "react";
-import { darken } from "polished";
+import { HumaaanBodyPartProps } from "../types";
+import { ensureHexColor } from "../util";
+import { darken } from 'polished';
 
-const ensureHexColor = (color: string) => {
-  // If color is already a valid hex color, return it
-  if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
-    return color;
-  }
-  // Otherwise, return a default color
-  console.warn(`Invalid color format: ${color}. Using default color.`);
-  return "#000000";
-};
-
-interface BaseBodyPartProps {
-  skinColor?: string;
-  shoeColor?: string;
-}
-
-interface BottomProps extends BaseBodyPartProps {
-  clothingColor?: string;
-}
-
-const Sprint: React.FC<BottomProps> = ({
-  clothingColor = "#7331FF",
-  skinColor = "#B28B67",
-  shoeColor = "#E4E4E4",
-}) => {
-  const validClothingColor = ensureHexColor(clothingColor);
+const Sprint: React.FC<HumaaanBodyPartProps> = ({ skinColor = "#B28B67", primaryColor = "#2F3676", secondaryColor = "#E4E4E4" }) => {
   const validSkinColor = ensureHexColor(skinColor);
-  const validShoeColor = ensureHexColor(shoeColor);
-  const shadedSkinColor = darken(0.06)(validSkinColor);
+  const validPrimaryColor = ensureHexColor(primaryColor);
+  const validSecondaryColor = ensureHexColor(secondaryColor);
+  const validSkinColorShaded = darken(0.06)(validSkinColor);
+  const validPrimaryColorShaded = darken(0.06)(validPrimaryColor);
 
   return (
     <g
@@ -47,13 +27,13 @@ const Sprint: React.FC<BottomProps> = ({
       <path
         d="M113.540088,152.75781 L118.105527,169.799273 C170.465638,175.811529 204.983252,168.36956 217.132934,156.81223 C225.232723,149.107343 232.495664,107.473517 238.921759,31.9107522 L204.926407,-16.6396419 C159.401042,17.7063231 186.537309,130.140454 185.373895,132.713083 C184.210481,135.285712 156.597106,137.319958 113.540088,152.75781 Z"
         id="Pant"
-        fill={validClothingColor}
+        fill={validPrimaryColor}
         transform="translate(176.230924, 77.646617) rotate(-55.000000) translate(-176.230924, -77.646617) "
       />
       <g
         id="Accessories/Shoe/Flat-Sneaker"
         transform="translate(223.383915, 187.279121) rotate(20.000000) translate(-223.383915, -187.279121) translate(192.883915, 167.279121)"
-        fill={validShoeColor}
+        fill={validSecondaryColor}
       >
         <path
           d="M2.67813181,25.4019242 C1.55937727,28.3884109 1,30.6229931 1,32.1056708 C1,33.908957 1.3004142,36.5404001 1.90124261,40 C3.99318117,40 22.7937852,40 58.3030548,40 C59.768738,35.1545073 58.9226607,32.5385816 55.7648228,32.1522232 C52.606985,31.7658647 49.9837155,31.4170139 47.8950143,31.1056708 L21.6799926,19.4188835 C21.1755635,19.1940064 20.584344,19.4206282 20.359467,19.9250573 C20.35562,19.9336867 20.3518954,19.9423702 20.3482945,19.9511052 L18.6632131,24.038695 C15.7398812,25.4026522 13.3643706,26.0846307 11.5366811,26.0846307 C10.0517269,26.0846307 8.00099246,25.4849054 5.38447792,24.2854549 L5.38448339,24.285443 C4.38038273,23.8251478 3.19325534,24.2659892 2.73296014,25.2700899 C2.71312074,25.3133681 2.69483298,25.3573409 2.67813181,25.4019242 Z"
@@ -62,13 +42,13 @@ const Sprint: React.FC<BottomProps> = ({
       </g>
       <polygon
         id="Leg"
-        fill={shadedSkinColor}
+        fill={validSkinColorShaded}
         points="130 0 78.2540376 124.226909 27.3958106 229.25029 39.3949124 229.25029 170.673688 0"
       />
       <g
         id="Accessories/Shoe/Flat-Sneaker"
         transform="translate(24.000000, 199.000000)"
-        fill={validShoeColor}
+        fill={validSecondaryColor}
       >
         <path
           d="M2.67813181,25.4019242 C1.55937727,28.3884109 1,30.6229931 1,32.1056708 C1,33.908957 1.3004142,36.5404001 1.90124261,40 C3.99318117,40 22.7937852,40 58.3030548,40 C59.768738,35.1545073 58.9226607,32.5385816 55.7648228,32.1522232 C52.606985,31.7658647 49.9837155,31.4170139 47.8950143,31.1056708 L21.6799926,19.4188835 C21.1755635,19.1940064 20.584344,19.4206282 20.359467,19.9250573 C20.35562,19.9336867 20.3518954,19.9423702 20.3482945,19.9511052 L18.6632131,24.038695 C15.7398812,25.4026522 13.3643706,26.0846307 11.5366811,26.0846307 C10.0517269,26.0846307 8.00099246,25.4849054 5.38447792,24.2854549 L5.38448339,24.285443 C4.38038273,23.8251478 3.19325534,24.2659892 2.73296014,25.2700899 C2.71312074,25.3133681 2.69483298,25.3573409 2.67813181,25.4019242 Z"
@@ -78,7 +58,7 @@ const Sprint: React.FC<BottomProps> = ({
       <path
         d="M31.9885488,207.432889 L58.6506859,212.432889 C79.2657755,182.124875 165.540767,57.851839 175,2.84217094e-14 L115.644073,2.84217094e-14 C84.0548806,41.821022 51.6389867,176.623522 31.9885488,207.432889 Z"
         id="Pant"
-        fill={validClothingColor}
+        fill={validPrimaryColorShaded}
       />
     </g>
   );

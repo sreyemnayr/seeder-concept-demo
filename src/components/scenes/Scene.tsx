@@ -436,7 +436,7 @@ export const Scene = forwardRef<
                 key={`thought-${currentInteractionIndex}`}
                 initial={{
                   opacity: 0,
-                  y: 500,
+                  y: "10%",
                   x:
                     getCharacterPosition(currentInteraction.character) ===
                     "left"
@@ -455,7 +455,7 @@ export const Scene = forwardRef<
                 }}
                 exit={{
                   opacity: 0,
-                  y: 500,
+                  y: "10%",
                   x:
                     getCharacterPosition(currentInteraction.character) ===
                     "left"
@@ -464,7 +464,7 @@ export const Scene = forwardRef<
                   scale: 0.2,
                   transition: { ease: ["easeOut", "easeIn"], duration: 2.5 },
                 }}
-                className="w-3/4 mt-16"
+                className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 mt-16"
               >
                 <ThoughtBubble
                   key={`${currentInteraction.character}-${currentInteractionIndex}`}

@@ -24,14 +24,14 @@ export function ThoughtBubble({
 }: ThoughtBubbleProps) {
   return (
     <motion.div
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/4 w-[40%]"
+      className=""
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
     >
       {/* Main bubble */}
       <div
-        className={`max-w-lg mx-auto bg-white rounded-3xl shadow-lg p-6 ${
+        className={`mx-auto bg-white rounded-3xl shadow-lg p-6 ${
           direction === "left" ? "mr-auto" : "ml-auto"
         }`}
       >
@@ -67,19 +67,6 @@ export function ThoughtBubble({
       </div>
 
       {/* Thought bubbles trail */}
-      <div
-        className={`absolute ${
-          direction === "left"
-            ? "left-0 -translate-x-full"
-            : "right-0 translate-x-full"
-        } bottom-1/4 flex items-end ${
-          direction === "left" ? "flex-row" : "flex-row-reverse"
-        } gap-1`}
-      >
-        <div className="w-4 h-4 rounded-full bg-white shadow-lg" />
-        <div className="w-3 h-3 rounded-full bg-white shadow-lg" />
-        <div className="w-2 h-2 rounded-full bg-white shadow-lg" />
-      </div>
     </motion.div>
   );
 }

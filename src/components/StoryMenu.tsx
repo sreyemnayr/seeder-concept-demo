@@ -1,6 +1,11 @@
+"use client";
+
 import { Story as StoryType } from "@/types";
 import { motion } from "framer-motion";
 import { Layout } from "./Layout";
+import { Human } from "@/components/characters/Human";
+
+import { useEffect, useState } from "react";
 
 interface StoryMenuProps {
   stories: StoryType[];
@@ -8,6 +13,11 @@ interface StoryMenuProps {
 }
 
 export function StoryMenu({ stories, onSelectStory }: StoryMenuProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   return (
     <Layout>
       <div className="w-full h-full flex flex-col items-center justify-center p-8">
@@ -45,6 +55,13 @@ export function StoryMenu({ stories, onSelectStory }: StoryMenuProps) {
             </motion.div>
           ))}
         </div>
+
+        {isClient && (
+          <>
+            <Human isActive={true} position="right" flip={true} />
+            <Human isActive={true} position="left" flip={false} />
+          </>
+        )}
       </div>
     </Layout>
   );

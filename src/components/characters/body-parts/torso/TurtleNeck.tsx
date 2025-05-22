@@ -1,28 +1,12 @@
 import React from "react";
-import { darken } from "polished";
+import { HumaaanBodyPartProps } from "../types";
+import { ensureHexColor } from "../util";
+import { darken } from 'polished';
 
-const ensureHexColor = (color: string) => {
-  // If color is already a valid hex color, return it
-  if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
-    return color;
-  }
-  // Otherwise, return a default color
-  console.warn(`Invalid color format: ${color}. Using default color.`);
-  return "#000000";
-};
-
-interface BaseBodyPartProps {
-  skinColor?: string;
-  clothingColor?: string;
-}
-
-const TurtleNeck: React.FC<BaseBodyPartProps> = ({
-  skinColor = "#B28B67",
-  clothingColor = "#FF9B21",
-}) => {
+const TurtleNeck: React.FC<HumaaanBodyPartProps> = ({ skinColor = "#B28B67", primaryColor = "#FF4133" }) => {
   const validSkinColor = ensureHexColor(skinColor);
-  const validClothingColor = ensureHexColor(clothingColor);
-  const darkClothingColor = darken(0.1, validClothingColor);
+  const validPrimaryColor = ensureHexColor(primaryColor);
+  const validPrimaryColorShaded = darken(0.06)(validPrimaryColor);
 
   return (
     <g
@@ -40,13 +24,13 @@ const TurtleNeck: React.FC<BaseBodyPartProps> = ({
       <path
         d="M122.768272,9.7139848 L131.253224,7.48281413 C149.019938,54.2642227 221.602897,80.8616426 227.451896,98.4190631 C229.596879,104.857833 225.154909,108.596168 227.774893,110.385298 L217.29519,119.561394 C215.205566,117.515062 211.513381,121.915723 202.815928,119.824345 C194.118475,117.732967 127.737533,66.5128914 122.768272,9.7139848 Z"
         id="Clothes-Back"
-        fill={darkClothingColor}
+        fill={validPrimaryColorShaded}
         transform="translate(175.413267, 63.943241) rotate(5.000000) translate(-175.413267, -63.943241) "
       />
       <path
         d="M142.240708,11.7336597 C141.243756,75.4830742 178.095832,91.7445602 169.887262,117.318245 C163.108761,138.436573 98.2273311,161.138686 87,140.43774 C82.4553197,132.058262 80.3933796,121.923875 80.1594269,110.905608 C77.2899563,119.370535 75.0205237,126.657823 73.3511268,132.767479 C70.4711839,143.30749 59.3062598,144.982871 59.3062598,149.043262 L44.5966299,144.982871 C45.5943495,139.466662 38.6598745,136.780597 40.5191881,124.456905 C48.8500046,69.239525 71.2334081,29.2141817 107.669398,4.38087468 L108.046347,-1.0097438 C108.200449,-3.21350145 110.111872,-4.87507585 112.315629,-4.72097411 L139.249859,-2.83754931 C141.453616,-2.68344757 143.115191,-0.772024866 142.961089,1.43173278 L142.240708,11.7336597 Z"
         id="Clothes-Front"
-        fill={validClothingColor}
+        fill={validPrimaryColor}
       />
     </g>
   );

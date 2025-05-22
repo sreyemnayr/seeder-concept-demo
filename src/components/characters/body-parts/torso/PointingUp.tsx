@@ -1,31 +1,13 @@
 import React from "react";
-import { darken } from "polished";
+import { HumaaanBodyPartProps } from "../types";
+import { ensureHexColor } from "../util";
+import { darken } from 'polished';
 
-const ensureHexColor = (color: string) => {
-  // If color is already a valid hex color, return it
-  if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
-    return color;
-  }
-  // Otherwise, return a default color
-  console.warn(`Invalid color format: ${color}. Using default color.`);
-  return "#000000";
-};
-
-interface BaseBodyPartProps {
-  skinColor?: string;
-}
-
-interface BottomProps extends BaseBodyPartProps {
-  clothingColor?: string;
-}
-
-const PointingUp: React.FC<BottomProps> = ({
-  clothingColor = "#7331FF",
-  skinColor = "#B28B67",
-}) => {
-  const validClothingColor = ensureHexColor(clothingColor);
+const PointingUp: React.FC<HumaaanBodyPartProps> = ({ skinColor = "#B28B67", primaryColor = "#1F28CF", secondaryColor = "#F2F2F2" }) => {
   const validSkinColor = ensureHexColor(skinColor);
-  const shadedClothingColor = darken(0.06)(validClothingColor);
+  const validPrimaryColor = ensureHexColor(primaryColor);
+  const validSecondaryColor = ensureHexColor(secondaryColor);
+  const validPrimaryColorShaded = darken(0.06)(validPrimaryColor);
 
   return (
     <g
@@ -43,18 +25,18 @@ const PointingUp: React.FC<BottomProps> = ({
       <path
         d="M126.984936,15.649923 C152.146796,42.4399518 182.83581,59.9216266 224.690767,75.4277614 L215.396057,94.0136202 C172.211363,89.9419212 149.124049,86.6900124 131.024869,59.8586619 C126.482342,53.1245369 118.360034,29.953677 113.494175,17.9210142 L126.984936,15.649923 Z"
         id="Coat-Back"
-        fill="#2026A2"
+        fill={validPrimaryColorShaded}
         transform="translate(169.092471, 54.831772) rotate(15.000000) translate(-169.092471, -54.831772) "
       />
       <path
         d="M90,114 L167,114 C149.558211,60.8053811 140.648283,24.2959016 140.270216,4.47156148 C140.250941,3.46089747 138.384379,1.67996472 137.55857,1.91319372 C131.519523,3.61877223 125.057267,2.98104099 118.1718,0 C99.917485,29.3584068 93.6048263,65.5045499 90,114 Z"
         id="Shirt"
-        fill="#F2F2F2"
+        fill={validSecondaryColor}
       />
       <path
         d="M124.742502,0.0473953679 C146.814238,0.228130238 182.624,4.25865631 223.922675,-9 L228,11.3734803 C196.78685,31.4482286 165.18092,46.9990656 137.486251,44.790754 C149.512444,96.3770989 148.957979,138.605966 122.407472,138.605966 C109.728284,138.605966 96.0428359,138.605966 81.3511268,138.605966 C74.8304314,94.783947 91.9680949,34.0236152 107.855955,3.37659428 C108.462665,2.20627687 109.75441,-3.65929509e-13 112.797001,-3.65929509e-13 C115.448059,-3.65929509e-13 119.424647,-3.65929509e-13 124.726763,-3.65929509e-13 C124.73201,0.0157984696 124.737257,0.0315969258 124.742502,0.0473953679 Z"
         id="Coat-Front"
-        fill={shadedClothingColor}
+        fill={validPrimaryColor}
       />
     </g>
   );

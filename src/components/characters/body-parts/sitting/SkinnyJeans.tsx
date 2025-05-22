@@ -1,34 +1,14 @@
 import React from "react";
-import { darken } from "polished";
+import { HumaaanBodyPartProps } from "../types";
+import { ensureHexColor } from "../util";
+import { darken } from 'polished';
 
-const ensureHexColor = (color: string) => {
-  // If color is already a valid hex color, return it
-  if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
-    return color;
-  }
-  // Otherwise, return a default color
-  console.warn(`Invalid color format: ${color}. Using default color.`);
-  return "#000000";
-};
-
-interface BaseBodyPartProps {
-  skinColor?: string;
-  shoeColor?: string;
-}
-
-interface BottomProps extends BaseBodyPartProps {
-  clothingColor?: string;
-}
-
-const SkinnyJeans: React.FC<BottomProps> = ({
-  clothingColor = "#7331FF",
-  skinColor = "#B28B67",
-  shoeColor = "#E4E4E4",
-}) => {
-  const validClothingColor = ensureHexColor(clothingColor);
+const SkinnyJeans: React.FC<HumaaanBodyPartProps> = ({ skinColor = "#B28B67", primaryColor = "#2B44FF", secondaryColor = "#E4E4E4", tertiaryColor = "#C5CFD6" }) => {
   const validSkinColor = ensureHexColor(skinColor);
-  const validShoeColor = ensureHexColor(shoeColor);
-  const shadedClothingColor = darken(0.06)(validClothingColor);
+  const validPrimaryColor = ensureHexColor(primaryColor);
+  const validSecondaryColor = ensureHexColor(secondaryColor);
+  const validTertiaryColor = ensureHexColor(tertiaryColor);
+  const validPrimaryColorShaded = darken(0.06)(validPrimaryColor);
 
   return (
     <g
@@ -42,7 +22,7 @@ const SkinnyJeans: React.FC<BottomProps> = ({
         <g id="Seat" transform="translate(55.000000, 0.000000)">
           <polygon
             id="Seat-Stuff"
-            fill="#C5CFD6"
+            fill={validTertiaryColor}
             points="27.6226415 0 104.877193 0 115 124 0 124"
           />
           <polygon
@@ -61,13 +41,13 @@ const SkinnyJeans: React.FC<BottomProps> = ({
       <path
         d="M208.819223,123.340112 L213.936922,21.8299349 C217.625361,4.27739957 248.84365,12.4235349 248.830812,21.8299349 C248.801666,43.1853748 235.973522,116.956762 235.964839,123.319261 L208.819223,123.340112 Z"
         id="LegLower"
-        fill={shadedClothingColor}
+        fill={validPrimaryColorShaded}
         transform="translate(228.825019, 67.419630) rotate(20.000000) translate(-228.825019, -67.419630) "
       />
       <g
         id="Accessories/Shoe/Flat-Sneaker"
         transform="translate(215.500000, 133.000000) rotate(30.000000) translate(-215.500000, -133.000000) translate(185.000000, 113.000000)"
-        fill={validShoeColor}
+        fill={validSecondaryColor}
       >
         <path
           d="M2.67813181,25.4019242 C1.55937727,28.3884109 1,30.6229931 1,32.1056708 C1,33.908957 1.3004142,36.5404001 1.90124261,40 C3.99318117,40 22.7937852,40 58.3030548,40 C59.768738,35.1545073 58.9226607,32.5385816 55.7648228,32.1522232 C52.606985,31.7658647 49.9837155,31.4170139 47.8950143,31.1056708 L21.6799926,19.4188835 C21.1755635,19.1940064 20.584344,19.4206282 20.359467,19.9250573 C20.35562,19.9336867 20.3518954,19.9423702 20.3482945,19.9511052 L18.6632131,24.038695 C15.7398812,25.4026522 13.3643706,26.0846307 11.5366811,26.0846307 C10.0517269,26.0846307 8.00099246,25.4849054 5.38447792,24.2854549 L5.38448339,24.285443 C4.38038273,23.8251478 3.19325534,24.2659892 2.73296014,25.2700899 C2.71312074,25.3133681 2.69483298,25.3573409 2.67813181,25.4019242 Z"
@@ -77,7 +57,7 @@ const SkinnyJeans: React.FC<BottomProps> = ({
       <g
         id="Accessories/Shoe/Flat-Sneaker"
         transform="translate(242.000000, 126.000000)"
-        fill={validShoeColor}
+        fill={validSecondaryColor}
       >
         <path
           d="M2.67813181,25.4019242 C1.55937727,28.3884109 1,30.6229931 1,32.1056708 C1,33.908957 1.3004142,36.5404001 1.90124261,40 C3.99318117,40 22.7937852,40 58.3030548,40 C59.768738,35.1545073 58.9226607,32.5385816 55.7648228,32.1522232 C52.606985,31.7658647 49.9837155,31.4170139 47.8950143,31.1056708 L21.6799926,19.4188835 C21.1755635,19.1940064 20.584344,19.4206282 20.359467,19.9250573 C20.35562,19.9336867 20.3518954,19.9423702 20.3482945,19.9511052 L18.6632131,24.038695 C15.7398812,25.4026522 13.3643706,26.0846307 11.5366811,26.0846307 C10.0517269,26.0846307 8.00099246,25.4849054 5.38447792,24.2854549 L5.38448339,24.285443 C4.38038273,23.8251478 3.19325534,24.2659892 2.73296014,25.2700899 C2.71312074,25.3133681 2.69483298,25.3573409 2.67813181,25.4019242 Z"
@@ -87,7 +67,7 @@ const SkinnyJeans: React.FC<BottomProps> = ({
       <path
         d="M282.770373,36.4330278 C282.770373,63 270.1536,124.970293 270.145616,130.820112 L243,130.840963 C246.973277,75.5454811 248.382172,47.5998928 247.226683,47.0041979 C245.49345,46.1106556 176.175838,53.9250306 155.386358,53.9250306 C125.407825,53.9250306 113.006307,35.0203971 112,-4.40536496e-13 L171.386358,-4.40536496e-13 C183.477954,1.29386693 246.548825,14.0152568 269.972097,18.3884129 C280,20.2606358 282.770373,29.1145109 282.770373,36.4330278 Z"
         id="Leg-and-Butt"
-        fill={validClothingColor}
+        fill={validPrimaryColor}
       />
     </g>
   );

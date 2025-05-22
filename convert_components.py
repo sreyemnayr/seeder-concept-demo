@@ -2,6 +2,72 @@ from pathlib import Path
 import re
 import shutil
 
+color_map = {
+    "head": {
+        "skinColor": ["#B28B67", "#997659"],
+        "primaryColor": ["#191847", "#2C2C2C"],  # Hair
+        "secondaryColor": [
+            "#89C5CC",
+            "#8991DC",
+            "#FF9B21",
+            "#5C63AB",
+            "#FF9B21",
+        ],  # Wraps
+    },
+    "torso": {
+        "skinColor": ["#B28B67", "#997659"],
+        "primaryColor": [
+            "#FF9B21",
+            "#2F3676",
+            "#FF4133",
+            "#DDE3E9",
+            "#C5CFD6",
+            "#1F28CF",
+            "#89C5CC",
+            "#C1DEE2",
+        ],  # Jackets, etc.
+        "primaryColorShaded": [
+            "#69A1AC",
+            "#E87613",
+            "#191847",
+            "#DB2721",
+            "#C5CFD6",
+            "#AFB9C5",
+            "#2026A2",
+        ],
+        "secondaryColor": ["#323337", "#DDE3E9", "#F2F2F2", "#191847"],
+    },
+    "standing": {
+        "skinColor": ["#B28B67"],
+        "skinColorShaded": ["#997659"],
+        "primaryColor": ["#2B44FF", "#89C5CC", "#FF4133", "#2F3676"],
+        "primaryColorShaded": [
+            "#1F28CF",
+            "#69A1AC",
+            "#DB2721",
+            "#191847",
+            "#2F3676",
+            "#5C63AB",
+        ],
+        "secondaryColor": [
+            "#191847",
+            "#E4E4E4",
+            "#5C63AB",
+        ],
+    },
+    "sitting": {
+        "skinColor": ["#B28B67"],
+        "primaryColor": ["#5C63AB", "#2B44FF"],
+        "primaryColorShaded": [
+            "#1F28CF",
+            "#2F3676",
+        ],
+        "secondaryColor": ["#E4E4E4"],
+        "tertiaryColor": ["#2F3676", "#C5CFD6"],
+        "tertiaryColorShaded": ["#191847"],
+    },
+}
+
 
 def extract_svg_content(js_content):
     # Find the content between the arrow function parentheses or createElement calls
@@ -19,18 +85,18 @@ def extract_svg_content(js_content):
     return None
 
 
-def get_used_colors(svg_content):
+def get_used_colors(svg_content, component_type="head"):
     """Determine which colors are actually used in the SVG content"""
     used_colors = {
         "skinColor": "#B28B67" in svg_content,
         "shadedSkinColor": "#997659" in svg_content,
-        "hairColor": "#191847" in svg_content,
-        "clothingColor": any(
+        "hairColor": "#191847" in svg_content if component_type == "head" else False,
+        "primaryColor": any(
             color in svg_content
             for color in ["#7331FF", "#5C63AB", "#2F3676", "#2B44FF"]
         ),
-        "shadedClothingColor": "#1F28CF" in svg_content,
-        "accessoryColor": any(
+        "shadedPrimaryColor": "#1F28CF" in svg_content,
+        "secondaryColor": any(
             color in svg_content for color in ["#FF9B21", "#89C5CC", "#8991DC"]
         ),
         "shoeColor": "#E4E4E4" in svg_content,
@@ -48,111 +114,46 @@ def convert_file(js_file: Path, ts_file: Path, component_type: str):
         return False
 
     # Get the colors actually used in this component
-    used_colors = get_used_colors(svg_content)
-
-    # Replace color codes with prop interpolation (no quotes)
-    if "skinColor" in used_colors:
-        svg_content = svg_content.replace('"#B28B67"', "{validSkinColor}")
-    if "shadedSkinColor" in used_colors:
-        svg_content = svg_content.replace('"#997659"', "{shadedSkinColor}")
-    if "hairColor" in used_colors:
-        svg_content = svg_content.replace('"#191847"', "{validHairColor}")
-    if "clothingColor" in used_colors:
-        svg_content = svg_content.replace('"#7331FF"', "{validClothingColor}")
-        svg_content = svg_content.replace('"#5C63AB"', "{validClothingColor}")
-        svg_content = svg_content.replace('"#2F3676"', "{validClothingColor}")
-        svg_content = svg_content.replace('"#2B44FF"', "{validClothingColor}")
-    if "shadedClothingColor" in used_colors:
-        svg_content = svg_content.replace('"#1F28CF"', "{shadedClothingColor}")
-    if "accessoryColor" in used_colors:
-        svg_content = svg_content.replace('"#FF9B21"', "{validAccessoryColor}")
-        svg_content = svg_content.replace('"#89C5CC"', "{validAccessoryColor}")
-        svg_content = svg_content.replace('"#8991DC"', "{validAccessoryColor}")
-    if "shoeColor" in used_colors:
-        svg_content = svg_content.replace('"#E4E4E4"', "{validShoeColor}")
-
-    # Build the interface based on used colors
-    interface_props = []
-    if any(color in used_colors for color in ["skinColor", "shadedSkinColor"]):
-        interface_props.append("  skinColor?: string;")
-    if "hairColor" in used_colors:
-        interface_props.append("  hairColor?: string;")
-    if "accessoryColor" in used_colors:
-        interface_props.append("  accessoryColor?: string;")
-    if "shoeColor" in used_colors:
-        interface_props.append("  shoeColor?: string;")
-
-    # Build the props interface
-    base_interface = ""
-    if interface_props:
-        base_interface = f"""interface BaseBodyPartProps {{
-{chr(10).join(interface_props)}
-}}
-
-"""
-
-    bottom_interface = ""
-    if any(color in used_colors for color in ["clothingColor", "shadedClothingColor"]):
-        if interface_props:
-            bottom_interface = """interface BottomProps extends BaseBodyPartProps {
-  clothingColor?: string;
-}
-
-"""
-        else:
-            bottom_interface = """interface BottomProps {
-  clothingColor?: string;
-}
-
-"""
-
-    # Build the props destructuring and validation
+    # used_colors = get_used_colors(svg_content)
+    used_colors = {}
     props = []
     defaults = []
     validations = []
     shading = []
 
-    if any(color in used_colors for color in ["clothingColor", "shadedClothingColor"]):
-        props.append('clothingColor = "#7331FF"')
-        validations.append(
-            "  const validClothingColor = ensureHexColor(clothingColor);"
-        )
-        if "shadedClothingColor" in used_colors:
-            shading.append(
-                "  const shadedClothingColor = darken(0.06)(validClothingColor);"
+    for var, colors in color_map.get(component_type, {}).items():
+        if color := next((color for color in colors if color in svg_content), None):
+            used_colors[var] = color
+            svg_content = svg_content.replace(
+                f'"{color}"', "{valid" + var[0].upper() + var[1:] + "}"
             )
-    if any(color in used_colors for color in ["skinColor", "shadedSkinColor"]):
-        props.append('skinColor = "#B28B67"')
-        validations.append("  const validSkinColor = ensureHexColor(skinColor);")
-        if "shadedSkinColor" in used_colors:
-            shading.append("  const shadedSkinColor = darken(0.06)(validSkinColor);")
-    if "hairColor" in used_colors:
-        props.append('hairColor = "#191847"')
-        validations.append("  const validHairColor = ensureHexColor(hairColor);")
-    if "accessoryColor" in used_colors:
-        props.append('accessoryColor = "#FF9B21"')
-        validations.append(
-            "  const validAccessoryColor = ensureHexColor(accessoryColor);"
-        )
-    if "shoeColor" in used_colors:
-        props.append('shoeColor = "#E4E4E4"')
-        validations.append("  const validShoeColor = ensureHexColor(shoeColor);")
+            if not "Shaded" in var:
+                props.append(f'{var} = "{color}"')
+                validations.append(
+                    f"  const valid{var[0].upper() + var[1:]} = ensureHexColor({var});"
+                )
+            else:
+                shading.append(
+                    f"  const valid{var[0].upper() + var[1:]} = darken(0.06)(valid{(var[0].upper() + var[1:]).replace('Shaded','')});"
+                )
+
+    # Build the interface based on used colors
+    interface_props = []
+    for var, color in used_colors.items():
+        interface_props.append(f"  {var}?: string;")
+
+    # Build the props destructuring and validation
+    darken_import = ""
+    if "ColorShaded" in svg_content:
+        darken_import = f"import {{ darken }} from 'polished';"
 
     # Create TypeScript component with proper type hierarchy and color validation
     ts_content = f"""import React from "react";
-import {{ darken }} from "polished";
+import {{ HumaaanBodyPartProps }} from "../types";
+import {{ ensureHexColor }} from "../util";
+{darken_import}
 
-const ensureHexColor = (color: string) => {{
-  // If color is already a valid hex color, return it
-  if (/^#[0-9A-Fa-f]{{6}}$/.test(color)) {{
-    return color;
-  }}
-  // Otherwise, return a default color
-  console.warn(`Invalid color format: ${{color}}. Using default color.`);
-  return "#000000";
-}};
-
-{base_interface}{bottom_interface}const {js_file.stem.replace("Svg", "")}: React.FC<{bottom_interface and "BottomProps" or "BaseBodyPartProps"}> = ({{ {", ".join(props)} }}) => {{
+const {js_file.stem.replace("Svg", "")}: React.FC<HumaaanBodyPartProps> = ({{ {", ".join(props)} }}) => {{
 {chr(10).join(validations) if validations else ""}
 {chr(10).join(shading) if shading else ""}
 
@@ -192,7 +193,7 @@ def main():
     dest_base = Path("src/components/characters/body-parts")
 
     # Component types to convert
-    component_types = ["torso", "standing", "sitting"]
+    component_types = ["torso", "standing", "sitting", "head"]
 
     # First, copy all component files from temp-humaaans
     print("Copying component files...")

@@ -1,37 +1,15 @@
 import React from "react";
-import { darken } from "polished";
+import { HumaaanBodyPartProps } from "../types";
+import { ensureHexColor } from "../util";
+import { darken } from 'polished';
 
-const ensureHexColor = (color: string) => {
-  // If color is already a valid hex color, return it
-  if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
-    return color;
-  }
-  // Otherwise, return a default color
-  console.warn(`Invalid color format: ${color}. Using default color.`);
-  return "#000000";
-};
-
-interface BaseBodyPartProps {
-  skinColor?: string;
-  hairColor?: string;
-  shoeColor?: string;
-}
-
-interface BottomProps extends BaseBodyPartProps {
-  clothingColor?: string;
-}
-
-const Wheelchair: React.FC<BottomProps> = ({
-  clothingColor = "#7331FF",
-  skinColor = "#B28B67",
-  hairColor = "#191847",
-  shoeColor = "#E4E4E4",
-}) => {
-  const validClothingColor = ensureHexColor(clothingColor);
+const Wheelchair: React.FC<HumaaanBodyPartProps> = ({ skinColor = "#B28B67", primaryColor = "#2B44FF", secondaryColor = "#E4E4E4", tertiaryColor = "#2F3676" }) => {
   const validSkinColor = ensureHexColor(skinColor);
-  const validHairColor = ensureHexColor(hairColor);
-  const validShoeColor = ensureHexColor(shoeColor);
-  const shadedClothingColor = darken(0.06)(validClothingColor);
+  const validPrimaryColor = ensureHexColor(primaryColor);
+  const validSecondaryColor = ensureHexColor(secondaryColor);
+  const validTertiaryColor = ensureHexColor(tertiaryColor);
+  const validPrimaryColorShaded = darken(0.06)(validPrimaryColor);
+  const validTertiaryColorShaded = darken(0.06)(validTertiaryColor);
 
   return (
     <g
@@ -49,18 +27,18 @@ const Wheelchair: React.FC<BottomProps> = ({
       <path
         d="M208.819223,123.340112 L213.936922,21.8299349 C217.625361,4.27739957 248.84365,12.4235349 248.830812,21.8299349 C248.801666,43.1853748 235.973522,116.956762 235.964839,123.319261 L208.819223,123.340112 Z"
         id="Leg-Back"
-        fill={shadedClothingColor}
+        fill={validPrimaryColorShaded}
         transform="translate(228.825019, 67.419630) rotate(20.000000) translate(-228.825019, -67.419630) "
       />
       <path
         d="M281,30.1765514 C281,56.7177303 269.366261,119.105994 269.358267,124.950436 L241.17615,124 C246.102422,69.7571864 248.179877,42.4520039 247.408516,42.0844525 C245.672952,41.2574617 176.262132,51.6911698 155.444697,52.4790258 C125.425854,53.615118 113.00766,35.1988173 112,0.25055648 L170.147646,0.25055648 C219.869047,6.18567094 252.548003,10.3136421 268.184514,12.63447 C278.225902,14.1248493 281,22.8651399 281,30.1765514 Z"
         id="Leg-Front"
-        fill={validClothingColor}
+        fill={validPrimaryColor}
       />
       <g
         id="Accessories/Shoe/Flat-Sneaker"
         transform="translate(216.820222, 128.225467) rotate(14.000000) translate(-216.820222, -128.225467) translate(186.320222, 108.225467)"
-        fill={validShoeColor}
+        fill={validSecondaryColor}
       >
         <path
           d="M2.67813181,25.4019242 C1.55937727,28.3884109 1,30.6229931 1,32.1056708 C1,33.908957 1.3004142,36.5404001 1.90124261,40 C3.99318117,40 22.7937852,40 58.3030548,40 C59.768738,35.1545073 58.9226607,32.5385816 55.7648228,32.1522232 C52.606985,31.7658647 49.9837155,31.4170139 47.8950143,31.1056708 L21.6799926,19.4188835 C21.1755635,19.1940064 20.584344,19.4206282 20.359467,19.9250573 C20.35562,19.9336867 20.3518954,19.9423702 20.3482945,19.9511052 L18.6632131,24.038695 C15.7398812,25.4026522 13.3643706,26.0846307 11.5366811,26.0846307 C10.0517269,26.0846307 8.00099246,25.4849054 5.38447792,24.2854549 L5.38448339,24.285443 C4.38038273,23.8251478 3.19325534,24.2659892 2.73296014,25.2700899 C2.71312074,25.3133681 2.69483298,25.3573409 2.67813181,25.4019242 Z"
@@ -70,7 +48,7 @@ const Wheelchair: React.FC<BottomProps> = ({
       <g
         id="Accessories/Shoe/Flat-Sneaker"
         transform="translate(243.000000, 111.000000)"
-        fill={validShoeColor}
+        fill={validSecondaryColor}
       >
         <path
           d="M2.67813181,25.4019242 C1.55937727,28.3884109 1,30.6229931 1,32.1056708 C1,33.908957 1.3004142,36.5404001 1.90124261,40 C3.99318117,40 22.7937852,40 58.3030548,40 C59.768738,35.1545073 58.9226607,32.5385816 55.7648228,32.1522232 C52.606985,31.7658647 49.9837155,31.4170139 47.8950143,31.1056708 L21.6799926,19.4188835 C21.1755635,19.1940064 20.584344,19.4206282 20.359467,19.9250573 C20.35562,19.9336867 20.3518954,19.9423702 20.3482945,19.9511052 L18.6632131,24.038695 C15.7398812,25.4026522 13.3643706,26.0846307 11.5366811,26.0846307 C10.0517269,26.0846307 8.00099246,25.4849054 5.38447792,24.2854549 L5.38448339,24.285443 C4.38038273,23.8251478 3.19325534,24.2659892 2.73296014,25.2700899 C2.71312074,25.3133681 2.69483298,25.3573409 2.67813181,25.4019242 Z"
@@ -79,7 +57,7 @@ const Wheelchair: React.FC<BottomProps> = ({
       </g>
       <rect
         id="Base"
-        fill={validClothingColor}
+        fill={validTertiaryColor}
         x={245}
         y={151}
         width={53}
@@ -89,19 +67,15 @@ const Wheelchair: React.FC<BottomProps> = ({
       <path
         d="M109,6 L216,6 C221.522847,6 226,10.4771525 226,16 L226,65 L103,65 C100.790861,65 99,63.209139 99,61 L99,16 C99,10.4771525 103.477153,6 109,6 Z"
         id="Seat"
-        fill={validClothingColor}
+        fill={validTertiaryColor}
       />
       <path
         d="M216,6 L218.193678,6 C223.091205,6 227.268082,9.54701889 228.061559,14.3798408 L250,148 L239.314286,148"
         id="Wheel-Stuff"
-        fill={validClothingColor}
+        fill={validTertiaryColor}
       />
-      <circle id="Front-Wheel" fill={validHairColor} cx={245} cy={150} r={18} />
-      <g
-        id="Wheel"
-        transform="translate(36.000000, 14.000000)"
-        fill={validHairColor}
-      >
+      <circle id="Front-Wheel" fill={validTertiaryColorShaded} cx={245} cy={150} r={18} />
+      <g id="Wheel" transform="translate(36.000000, 14.000000)" fill={validTertiaryColorShaded}>
         <path d="M76,152 C34.026359,152 0,117.973641 0,76 C0,34.026359 34.026359,0 76,0 C117.973641,0 152,34.026359 152,76 C152,117.973641 117.973641,152 76,152 Z M76,138 C110.241654,138 138,110.241654 138,76 C138,41.7583455 110.241654,14 76,14 C41.7583455,14 14,41.7583455 14,76 C14,110.241654 41.7583455,138 76,138 Z" />
         <rect id="Wheel-Stuff" x={72} y={10} width={8} height={132} />
         <rect

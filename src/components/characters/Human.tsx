@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { HumanCharacterProps } from "@/types/character";
-import { HeadProps } from "@/types/head";
+import { HumaaanBodyPartProps } from "./body-parts/types";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
 
@@ -114,23 +114,41 @@ export const HAIR_COLORS = [
   "#B7A69E", // light brown
   "#D4B97C", // blonde
   "#DCDCDC", // grey
+  "#3B2F2F", // Dark Brown
+  "#7B3F00", // Chestnut
+  "#6B5E5E", // Medium Ash Brown
+  "#F9D78C", // Golden Blonde
+  "#F3F3F3", // Platinum Blonde
+  "#0A0A0A", // Jet Black
+  "#2C2C2C", // Soft Black
+  "#8B3A3A", // Auburn
+  "#580F41", // Burgundy
+  "#D6A77A", // Rose Gold
+  "#C0C0C0", // Silver Gray
+  "#B497BD", // Lilac
+  "#1B264F", // Deep Blue
+  "#B55239", // Copper
+  "#6B8E23", // Olive Green
 ];
 
 export const CLOTHING_COLORS = [
-  "#2D3748", // slate
-  "#4A5568", // grey
-  "#2B6CB0", // blue
-  "#2F855A", // green
-  "#9B2C2C", // red
+  "#3A1730", // deep plum
+  "#0A1533", // navy night
+  "#062314", // forest green
+  "#242C11", // olive moss
+  "#49230E", // dark rust
+  "#8D2E16", // brick red
+  "#8F3B1A", // burnt sienna
+  "#652930", // wine
+  "#8F5B54", // rosewood
+  "#92778A", // muted mauve
+  "#E0DAA4", // wheat
+  "#F1EFDD", // cream
+  "#160835", // indigo
+  "#696969", // gray
+  "#960018", // crimson
   "#744210", // brown
 ];
-
-interface BodyPartProps {
-  skinColor?: string;
-  hairColor?: string;
-  clothingColor?: string;
-  accessoryColor?: string;
-}
 
 // Helper function to get random array item
 function getRandomItem<T>(items: T[]): T {
@@ -143,23 +161,30 @@ const generateRandomStyle = () => ({
   skinColor: getRandomItem(SKIN_TONES),
   clothingColor: getRandomItem(CLOTHING_COLORS),
   accessoryColor: getRandomItem(CLOTHING_COLORS),
+  seatColor: getRandomItem(CLOTHING_COLORS),
 });
 
 // Dynamic imports for body parts
 const importHead = (type: string) =>
-  dynamic<HeadProps>(() => import(`./body-parts/head/${type}.tsx`), {
+  dynamic<HumaaanBodyPartProps>(() => import(`./body-parts/head/${type}.tsx`), {
     loading: () => <g />,
   });
 
 const importTorso = (type: string) =>
-  dynamic<BodyPartProps>(() => import(`./body-parts/torso/${type}.tsx`), {
-    loading: () => <g />,
-  });
+  dynamic<HumaaanBodyPartProps>(
+    () => import(`./body-parts/torso/${type}.tsx`),
+    {
+      loading: () => <g />,
+    }
+  );
 
 const importBottom = (type: string, posture: "sitting" | "standing") =>
-  dynamic<BodyPartProps>(() => import(`./body-parts/${posture}/${type}.tsx`), {
-    loading: () => <g />,
-  });
+  dynamic<HumaaanBodyPartProps>(
+    () => import(`./body-parts/${posture}/${type}.tsx`),
+    {
+      loading: () => <g />,
+    }
+  );
 
 export function Human({
   isActive = false,
@@ -174,7 +199,10 @@ export function Human({
   role,
 }: HumanCharacterProps) {
   // Generate random values for undefined props
-  posture = posture ?? "standing";
+  posture = useMemo(
+    () => posture ?? getRandomItem(["standing", "sitting"]),
+    [posture]
+  );
   const randomStyle = useMemo(() => generateRandomStyle(), []);
   const randomHead = useMemo(() => getRandomItem(HEADS), []);
   const randomTorso = useMemo(() => getRandomItem(TORSOS), []);
@@ -208,24 +236,20 @@ export function Human({
   return (
     <motion.div
       className={`absolute ${
-        position === "left" ? "left-16" : "right-16"
-      } bottom-32 flex flex-col items-center transition-all duration-300`}
+        position === "left" ? "left-0" : "right-0"
+      } bottom-0 w-1/3 h-full transition-all duration-300`}
       style={{
         opacity: isActive ? 1 : 0.1,
         transform: `scale(${
-          flip ? -1 * (isActive ? 1.2 : 1) : 1 * (isActive ? 1.2 : 1)
-        }, ${isActive ? 1.2 : 1})`,
+          flip ? -1 * (isActive ? 1 : 0.8) : 1 * (isActive ? 1 : 0.8)
+        }, ${isActive ? 1 : 0.8})`,
       }}
     >
       {/* SVG Container */}
       <div
-        style={{
-          width: DEFAULT_WIDTH,
-          height:
-            posture === "sitting"
-              ? DEFAULT_SITTING_HEIGHT + SITTING_HEIGHT_ADJUSTMENT
-              : DEFAULT_STANDING_HEIGHT + STANDING_HEIGHT_ADJUSTMENT,
-        }}
+        className={`absolute ${
+          position === "left" ? "left-6" : "right-6"
+        } h-[80vh] top-1/2 -translate-y-1/2 `}
       >
         <svg
           width="100%"
@@ -249,24 +273,28 @@ export function Human({
             >
               <g id="HEAD" transform="translate(82, 0)">
                 <Head
+                  key={`head-${head}-${posture}`}
                   skinColor={mergedStyle.skinColor}
-                  hairColor={mergedStyle.hairColor}
-                  accessoryColor={mergedStyle.accessoryColor}
+                  primaryColor={mergedStyle.hairColor}
+                  secondaryColor={mergedStyle.accessoryColor}
                 />
               </g>
 
               <g id="BOTTOM" transform="translate(0, 187)">
                 <Bottom
-                  clothingColor={mergedStyle.clothingColor}
-                  hairColor={mergedStyle.hairColor}
+                  key={`bottom-${outfit}-${posture}`}
+                  primaryColor={mergedStyle.accessoryColor}
+                  secondaryColor={mergedStyle.clothingColor}
                   skinColor={mergedStyle.skinColor}
+                  tertiaryColor={mergedStyle.seatColor}
                 />
               </g>
               <g id="TORSO" transform="translate(22, 82)">
                 <Torso
-                  clothingColor={mergedStyle.clothingColor}
+                  key={`torso-${torso}-${posture}`}
+                  primaryColor={mergedStyle.clothingColor}
+                  secondaryColor={mergedStyle.accessoryColor}
                   skinColor={mergedStyle.skinColor}
-                  accessoryColor={mergedStyle.accessoryColor}
                 />
               </g>
             </g>
@@ -275,17 +303,19 @@ export function Human({
       </div>
       {/* Character Label */}
       <div
-        className="mb-4 px-3 text-[3em]"
-        style={{ transform: `scale(${flip ? -1 : 1}, 1)` }} // Unflip the text
+        className={`absolute left-1/8 bottom-1/12 *:flex flex-row items-center text-[2em]  `}
+        style={{
+          transform: `scale(${
+            flip ? -1 * (isActive ? 1 : 0.8) : 1 * (isActive ? 1 : 0.8)
+          }, ${isActive ? 1 : 0.8})`,
+        }}
       >
-        <div className="text-center">
-          <div className="font-medium text-gray-900">{name}</div>
-          {role && (
-            <div className="text-[0.6em] text-gray-400 first-letter:uppercase -mt-4">
-              {role}
-            </div>
-          )}
-        </div>
+        <div className="font-medium text-gray-900">{name}</div>
+        {role && (
+          <div className="text-[0.6em] text-gray-400 first-letter:uppercase -mt-4">
+            ({role})
+          </div>
+        )}
       </div>
     </motion.div>
   );

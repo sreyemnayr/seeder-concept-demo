@@ -1,31 +1,13 @@
 import React from "react";
-import { darken } from "polished";
+import { HumaaanBodyPartProps } from "../types";
+import { ensureHexColor } from "../util";
+import { darken } from 'polished';
 
-const ensureHexColor = (color: string) => {
-  // If color is already a valid hex color, return it
-  if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
-    return color;
-  }
-  // Otherwise, return a default color
-  console.warn(`Invalid color format: ${color}. Using default color.`);
-  return "#000000";
-};
-
-interface BaseBodyPartProps {
-  skinColor?: string;
-  accessoryColor?: string;
-  clothingColor?: string;
-}
-
-const TrenchCoat: React.FC<BaseBodyPartProps> = ({
-  skinColor = "#B28B67",
-  accessoryColor = "#191847",
-  clothingColor = "#89C5CC",
-}) => {
+const TrenchCoat: React.FC<HumaaanBodyPartProps> = ({ skinColor = "#B28B67", primaryColor = "#89C5CC", secondaryColor = "#191847" }) => {
   const validSkinColor = ensureHexColor(skinColor);
-  const validAccessoryColor = ensureHexColor(accessoryColor);
-  const validClothingColor = ensureHexColor(clothingColor);
-  const shadedClothingColor = darken(0.06)(validClothingColor);
+  const validPrimaryColor = ensureHexColor(primaryColor);
+  const validSecondaryColor = ensureHexColor(secondaryColor);
+  const validPrimaryColorShaded = darken(0.06)(validPrimaryColor);
 
   return (
     <g
@@ -44,17 +26,17 @@ const TrenchCoat: React.FC<BaseBodyPartProps> = ({
       <path
         d="M203.320455,87.6779032 C207.424546,87.3832636 211.888791,88.063152 216.675075,89.6758318 C219.030261,90.4693828 220.296216,93.0219384 219.502665,95.3771242 C219.041777,96.7449968 217.987543,97.7454511 216.723241,98.1883982 C217.639067,98.8565328 218.563007,99.520979 219.495159,100.181671 L211.447983,116.609623 C177.58505,99.7255288 145.757134,86.9958405 131.253857,59.1215578 C126.386182,49.766228 128.033751,17.9882599 127.569134,6.42756866 L138.264162,2.04144427 C153.172616,32.858252 173.349023,62.4232387 203.320455,87.6779032 Z"
         id="Back-Arm"
-        fill={shadedClothingColor}
+        fill={validPrimaryColorShaded}
       />
       <path
         d="M90,113.909745 C121.438326,117.363418 146.183737,117.363418 164.236234,113.909745 C166.472817,113.481858 166.374598,103.840401 165.337385,101.207228 C149.185283,60.2018743 138.560302,30.1840325 138.560302,1.70263734 C135.596594,3.25072994 130.409827,3.48273097 123,2.39864042 C103.086202,31.7496339 93.9325378,65.4265407 90,113.909745 Z"
         id="Shirt"
-        fill={validAccessoryColor}
+        fill={validSecondaryColor}
       />
       <path
         d="M84.1585766,118.757813 C83.0909039,117.753244 82.5343141,116.247337 82.8078928,114.695795 L83.3288374,111.741372 C83.6818668,109.739242 85.3079057,108.281318 87.2277662,108.053234 C87.5633833,106.552966 87.8527505,105.062753 88.0917371,103.583451 C90.1105318,91.0873271 86.6613147,78.8344715 86.8233023,66.8021056 C70.7431982,80.5215474 56.3180804,104.211193 43.5479488,137.871041 L24.6611622,132.313477 C25.3818,129.636227 26.1282539,126.991859 26.9005241,124.380374 C24.7206054,123.141961 22.1733635,117.465977 24.0066041,116.516161 C25.8999362,115.53521 27.9056982,114.844785 30.0179817,114.438414 C47.3353888,62.2791261 75.6546193,24.1329883 114.975674,-4.19220214e-13 L120.377288,-4.12114787e-13 L126.348425,-1.0658141e-14 C123,44.2807404 169.249642,140.9549 153.190593,223.518112 C123.507857,230.146789 81.1319105,209.522766 39.8828129,226 C41.4176928,192.750911 72.1631413,153.690797 84.1585803,118.757804 Z"
         id="Coat-Front"
-        fill={validClothingColor}
+        fill={validPrimaryColor}
       />
       <polygon
         id="Shade-Lapel"
