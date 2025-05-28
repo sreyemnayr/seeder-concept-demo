@@ -1,5 +1,6 @@
 "use client";
 
+import { useIsLandscape } from "@/hooks/useMediaQuery";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
@@ -22,6 +23,7 @@ export function ThoughtBubble({
   delay = 1000,
   onComplete = () => {},
 }: ThoughtBubbleProps) {
+  const landscape = useIsLandscape();
   return (
     <motion.div
       className=""
@@ -31,7 +33,7 @@ export function ThoughtBubble({
     >
       {/* Main bubble */}
       <div
-        className={`mx-auto bg-white rounded-3xl shadow-lg p-6 ${
+        className={`mx-auto bg-white/10 rounded-3xl shadow-lg p-6 ${
           direction === "left" ? "mr-auto" : "ml-auto"
         }`}
       >
@@ -40,7 +42,7 @@ export function ThoughtBubble({
             isTerminal
               ? "bg-black text-green-400 p-4 rounded-lg font-mono"
               : "bg-gray-100 text-gray-800 p-4 rounded-lg"
-          }`}
+          } ${landscape ? "text-2xl" : ""}`}
           style={isTerminal ? undefined : { fontFamily: "var(--font-roboto)" }}
         >
           {isTerminal && (
@@ -62,6 +64,7 @@ export function ThoughtBubble({
             cursor={true}
             repeat={0}
             speed={speed}
+            style={{ whiteSpace: "pre-line" }}
           />
         </div>
       </div>

@@ -9,13 +9,14 @@ import {
   useCallback,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Scene as SceneType } from "@/types";
+import { Scene as SceneType, ChatMessage } from "@/types";
 import { Character } from "@/types/character";
 import { Human } from "@/components/characters/Human";
 import { ChatBubble } from "@/components/bubbles/ChatBubble";
 import { ThoughtBubble } from "@/components/bubbles/ThoughtBubble";
 
 import { totalDuration } from "@/util/animation";
+import { useIsLandscape } from "@/hooks/useMediaQuery";
 
 type Speed = Parameters<typeof totalDuration>[1];
 
@@ -31,12 +32,6 @@ interface SceneProps {
   isPaused?: boolean;
   autoAdvance?: boolean;
   onStepChange?: (currentStep: number, totalSteps: number) => void;
-}
-
-interface ChatMessage {
-  text: string;
-  direction: "left" | "right";
-  isNew: boolean;
 }
 
 export const Scene = forwardRef<
@@ -63,17 +58,27 @@ export const Scene = forwardRef<
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
     const [stepComplete, setStepComplete] = useState(false);
-
     const [activeCharacter, setActiveCharacter] = useState<Character | null>(
       null
     );
+    const landscape = useIsLandscape();
+
+    // Add ref to track current step to handle stale callbacks
+    const currentStepRef = useRef(currentInteractionIndex);
+    currentStepRef.current = currentInteractionIndex;
 
     const animationTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
     const currentInteraction = scene.interactions[currentInteractionIndex];
     const totalSteps = scene.interactions.length;
 
-    // const [duration, setDuration] = useState(0);
+    const getCharacterPosition = useCallback(
+      (characterName: string): "left" | "right" => {
+        const index = scene.characters.indexOf(characterName);
+        return index === 0 ? "left" : "right";
+      },
+      [scene.characters]
+    );
 
     // Initialize step info
     useEffect(() => {
@@ -95,35 +100,47 @@ export const Scene = forwardRef<
     ]);
 
     const updateCurrentIndex = (newIndex: number) => {
+      // Clear any ongoing animations
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
       setCurrentInteractionIndex(newIndex);
       setStepComplete(false);
       setIsTransitioning(false);
     };
 
+    const nextStep = useCallback(
+      (cur: number = currentInteractionIndex) => {
+        // Prevent stale callbacks from triggering next step
+        if (cur !== currentStepRef.current) {
+          return;
+        }
+
+        if (currentInteractionIndex < totalSteps - 1) {
+          updateCurrentIndex(currentInteractionIndex + 1);
+        } else {
+          onComplete?.();
+        }
+      },
+      [currentInteractionIndex, totalSteps, onComplete]
+    );
+
+    const previousStep = useCallback(() => {
+      if (currentInteractionIndex > 0) {
+        updateCurrentIndex(currentInteractionIndex - 1);
+      }
+    }, [currentInteractionIndex]);
+
     // Expose navigation methods and step info
     useImperativeHandle(
       ref,
       () => ({
-        nextStep: () => {
-          if (currentInteractionIndex < totalSteps - 1) {
-            if (animationTimeoutRef.current) {
-              clearTimeout(animationTimeoutRef.current);
-            }
-            updateCurrentIndex(currentInteractionIndex + 1);
-          }
-        },
-        previousStep: () => {
-          if (currentInteractionIndex > 0) {
-            if (animationTimeoutRef.current) {
-              clearTimeout(animationTimeoutRef.current);
-            }
-            updateCurrentIndex(currentInteractionIndex - 1);
-          }
-        },
+        nextStep,
+        previousStep,
         currentStepIndex: currentInteractionIndex,
         totalSteps,
       }),
-      [currentInteractionIndex, totalSteps]
+      [currentInteractionIndex, totalSteps, nextStep, previousStep]
     );
 
     // Reset states when scene changes
@@ -147,47 +164,25 @@ export const Scene = forwardRef<
 
       setIsTransitioning(true);
 
-      // Add current interaction to chat history if it's a speak type
-      if (currentInteraction.type === "speak") {
-        const direction = getCharacterPosition(currentInteraction.character);
-        setChatHistory((prev) => [
-          ...prev.map((msg) => ({ ...msg, isNew: false })),
-          {
-            text: currentInteraction.text,
-            direction,
-            isNew: true,
-          },
-        ]);
-      } else {
-        setChatHistory((prev) => [
-          ...prev.map((msg) => ({ ...msg, isNew: false })),
-        ]);
-      }
-
-      // const stepDuration = totalDuration(
-      //   [currentInteraction.text],
-      //   currentInteraction.type === "speak" ? CHAT_SPEED : THOUGHT_SPEED
-      // );
-      // setDuration(stepDuration);
-
-      // animationTimeoutRef.current = setTimeout(() => {
-      //   setIsTransitioning(false);
-      //   setStepComplete(true);
-
-      //   // Only advance if explicitly set to auto-advance
-      //   if (autoAdvance && currentInteractionIndex < totalSteps - 1) {
-      //     updateCurrentIndex(currentInteractionIndex + 1);
-      //   } else if (autoAdvance && currentInteractionIndex === totalSteps - 1) {
-      //     onComplete?.();
-      //   }
-      // }, stepDuration);
+      // Reset chat history for the current step
+      setChatHistory(
+        scene.interactions
+          .slice(0, currentInteractionIndex + 1)
+          .map((interaction, idx) => ({
+            text: interaction.text,
+            direction: getCharacterPosition(interaction.character),
+            isNew: idx === currentInteractionIndex,
+            type: interaction.type,
+            character: interaction.character,
+          }))
+          .filter((interaction) => interaction.type === "speak")
+      );
     }, [
       currentInteraction,
       isTransitioning,
-      autoAdvance,
+      scene.interactions,
       currentInteractionIndex,
-      totalSteps,
-      onComplete,
+      getCharacterPosition,
     ]);
 
     // Handle play/pause state changes
@@ -207,11 +202,6 @@ export const Scene = forwardRef<
       stepComplete,
       startStepAnimation,
     ]);
-
-    const getCharacterPosition = (characterName: string): "left" | "right" => {
-      const index = scene.characters.indexOf(characterName);
-      return index === 0 ? "left" : "right";
-    };
 
     const getCharacterFlip = (characterName: string): boolean => {
       const index = scene.characters.indexOf(characterName);
@@ -262,116 +252,8 @@ export const Scene = forwardRef<
       );
     };
 
-    // const getBubbleComponents = () => {
-    //   if (!currentInteraction) return null;
-
-    //   const character = characters.find(
-    //     (c) => c.name === currentInteraction.character
-    //   );
-    //   const isThinking = currentInteraction.type === "think";
-
-    //   return (
-    //     <div className="absolute left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/2 w-full flex flex-col items-center">
-    //       {/* Chat Bubble */}
-    //       <AnimatePresence mode="wait">
-    //         {chatHistory.length > 0 && (
-    //           <motion.div
-    //             key={`chat-${currentInteractionIndex}`}
-    //             initial={
-    //               isThinking
-    //                 ? { opacity: 0, scale: 0.9, y: 0 }
-    //                 : { opacity: 0, scale: 0.9, y: 0 }
-    //             }
-    //             animate={{
-    //               opacity: isThinking ? 0.5 : 1,
-    //               scale: isThinking ? 0.5 : 1,
-    //               y: isThinking ? -40 : 0,
-    //             }}
-    //             exit={
-    //               isThinking
-    //                 ? { opacity: 0, scale: 0.1 }
-    //                 : { opacity: 0, scale: 0.9 }
-    //             }
-    //             transition={{ duration: 0.3 }}
-    //             className="w-full"
-    //           >
-    //             <ChatBubble
-    //               messages={chatHistory}
-    //               speed={CHAT_SPEED}
-    //               delay={CHAT_DELAY}
-    //               onComplete={() => {
-    //                 setIsTransitioning(false);
-    //                 setStepComplete(true);
-    //                 if (
-    //                   autoAdvance &&
-    //                   currentInteractionIndex < totalSteps - 1
-    //                 ) {
-    //                   updateCurrentIndex(currentInteractionIndex + 1);
-    //                 } else if (
-    //                   autoAdvance &&
-    //                   currentInteractionIndex === totalSteps - 1
-    //                 ) {
-    //                   onComplete?.();
-    //                 }
-    //               }}
-    //             />
-    //           </motion.div>
-    //         )}
-    //       </AnimatePresence>
-
-    //       {/* Thought Bubble */}
-    //       <AnimatePresence mode="wait">
-    //         {isThinking && (
-    //           <motion.div
-    //             key={`thought-${currentInteractionIndex}`}
-    //             initial={{ opacity: 0, y: 50 }}
-    //             animate={{ opacity: 1, y: 100 }}
-    //             exit={{ opacity: 0, y: 50 }}
-    //             transition={{ duration: 0.3 }}
-    //             className="w-full mt-16"
-    //           >
-    //             <ThoughtBubble
-    //               key={`${currentInteraction.character}-${currentInteractionIndex}`}
-    //               text={currentInteraction.text}
-    //               direction={getCharacterPosition(currentInteraction.character)}
-    //               isTerminal={character?.type === "ai"}
-    //               speed={THOUGHT_SPEED}
-    //               delay={THOUGHT_DELAY}
-    //               onComplete={() => {
-    //                 setIsTransitioning(false);
-    //                 setStepComplete(true);
-    //                 if (
-    //                   autoAdvance &&
-    //                   currentInteractionIndex < totalSteps - 1
-    //                 ) {
-    //                   updateCurrentIndex(currentInteractionIndex + 1);
-    //                 } else if (
-    //                   autoAdvance &&
-    //                   currentInteractionIndex === totalSteps - 1
-    //                 ) {
-    //                   onComplete?.();
-    //                 }
-    //               }}
-    //             />
-    //           </motion.div>
-    //         )}
-    //       </AnimatePresence>
-    //     </div>
-    //   );
-    // };
-
     return (
       <div className="relative w-full h-full">
-        {/* Scene title */}
-        <motion.h2
-          className="absolute top-8 left-1/2 transform -translate-x-1/2 text-[4em] font-bold text-gray-800"
-          style={{ fontFamily: "var(--font-libre)" }}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          {scene.title}
-        </motion.h2>
-
         {/* Characters */}
         {scene.characters.map((characterName) => {
           const character = characters.find((c) => c.name === characterName);
@@ -380,53 +262,51 @@ export const Scene = forwardRef<
         })}
 
         {/* Interaction bubbles */}
-        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 w-full flex flex-col items-center">
+        <div
+          className={`absolute left-1/2 top-1/2 transform -translate-x-1/2 w-full flex flex-col items-center ${
+            landscape ? "top-1/2 -translate-y-1/2" : "top-0 -translate-y-1/2"
+          }`}
+        >
           {/* Chat Bubble */}
           <AnimatePresence mode="wait">
-            {chatHistory.length > 0 && (
-              <motion.div
-                // key={`chat-${currentInteractionIndex}`}
-                key={`chat`}
-                initial={
-                  currentInteraction.type === "think"
-                    ? { opacity: 0, scale: 0.9, y: 0 }
-                    : { opacity: 0, scale: 0.9, y: 0 }
-                }
-                animate={{
-                  opacity: currentInteraction.type === "think" ? 0.5 : 1,
-                  scale: currentInteraction.type === "think" ? 1 : 1,
-                  // y: currentInteraction.type === "think" ? -40 : 0,
-                }}
-                exit={
-                  currentInteraction.type === "think"
-                    ? { opacity: 0, scale: 0.9 }
-                    : { opacity: 0, scale: 0.9 }
-                }
-                transition={{ duration: 0.3 }}
-                className="w-full"
-              >
-                <ChatBubble
-                  messages={chatHistory}
-                  speed={CHAT_SPEED}
-                  delay={CHAT_DELAY}
-                  onComplete={() => {
+            <motion.div
+              initial={
+                currentInteraction.type === "think"
+                  ? { opacity: 0, scale: 0.9, y: 0 }
+                  : { opacity: 0, scale: 0.9, y: 0 }
+              }
+              animate={{
+                opacity: currentInteraction.type === "think" ? 0.5 : 1,
+                scale: currentInteraction.type === "think" ? 1 : 1,
+              }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="w-full"
+            >
+              <ChatBubble
+                messages={chatHistory}
+                speed={CHAT_SPEED}
+                delay={CHAT_DELAY}
+                onComplete={() => {
+                  // Only update state if we're still on the same step
+                  if (currentStepRef.current === currentInteractionIndex) {
                     setIsTransitioning(false);
                     setStepComplete(true);
                     if (
                       autoAdvance &&
                       currentInteractionIndex < totalSteps - 1
                     ) {
-                      updateCurrentIndex(currentInteractionIndex + 1);
+                      nextStep(currentInteractionIndex);
                     } else if (
                       autoAdvance &&
                       currentInteractionIndex === totalSteps - 1
                     ) {
                       onComplete?.();
                     }
-                  }}
-                />
-              </motion.div>
-            )}
+                  }
+                }}
+              />
+            </motion.div>
           </AnimatePresence>
 
           {/* Thought Bubble */}
@@ -445,13 +325,17 @@ export const Scene = forwardRef<
                 }}
                 animate={{
                   opacity: 1,
-                  y: 0,
+                  y: landscape ? "-100%" : "100%",
                   x:
                     getCharacterPosition(currentInteraction.character) ===
                     "left"
-                      ? "-25%"
-                      : "25%",
-                  transition: { ease: ["easeOut", "easeOut"], duration: 0.3 },
+                      ? landscape
+                        ? "-15%"
+                        : "0%"
+                      : landscape
+                      ? "15%"
+                      : "0%",
+                  transition: { ease: ["easeOut", "easeOut"], duration: 0.2 },
                 }}
                 exit={{
                   opacity: 0,
@@ -462,9 +346,13 @@ export const Scene = forwardRef<
                       ? "-50%"
                       : "50%",
                   scale: 0.2,
-                  transition: { ease: ["easeOut", "easeIn"], duration: 2.5 },
+                  transition: { ease: ["easeOut", "easeIn"], duration: 0.2 },
                 }}
-                className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 mt-16"
+                className={`absolute transform  mt-16 ${
+                  landscape
+                    ? "w-1/2 -translate-x-1/2 left-1/2 top-0"
+                    : "w-full bottom-0"
+                }`}
               >
                 <ThoughtBubble
                   key={`${currentInteraction.character}-${currentInteractionIndex}`}
@@ -474,40 +362,19 @@ export const Scene = forwardRef<
                   speed={THOUGHT_SPEED}
                   delay={THOUGHT_DELAY}
                   onComplete={() => {
-                    setIsTransitioning(false);
-                    setStepComplete(true);
-                    if (
-                      autoAdvance &&
-                      currentInteractionIndex < totalSteps - 1
-                    ) {
-                      updateCurrentIndex(currentInteractionIndex + 1);
-                    } else if (
-                      autoAdvance &&
-                      currentInteractionIndex === totalSteps - 1
-                    ) {
-                      onComplete?.();
+                    // Only update state if we're still on the same step
+                    if (currentStepRef.current === currentInteractionIndex) {
+                      setIsTransitioning(false);
+                      setStepComplete(true);
+                      if (autoAdvance) {
+                        nextStep(currentInteractionIndex);
+                      }
                     }
                   }}
                 />
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-
-        {/* Step progress indicators */}
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex gap-1.5">
-          {scene.interactions.map((_, index) => (
-            <div
-              key={`step-${index}`}
-              className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
-                index === currentInteractionIndex
-                  ? "bg-blue-500"
-                  : index < currentInteractionIndex
-                  ? "bg-blue-200"
-                  : "bg-gray-200"
-              }`}
-            />
-          ))}
         </div>
       </div>
     );

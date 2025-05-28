@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Story as StoryType } from "@/types";
 import { Scene } from "@/components/scenes/Scene";
@@ -12,8 +12,8 @@ import {
   ChevronDoubleRightIcon,
   HomeIcon,
   ForwardIcon,
-  PlayIcon,
-  PauseIcon,
+  // PlayIcon,
+  // PauseIcon,
 } from "@heroicons/react/24/solid";
 import {
   HEADS,
@@ -97,7 +97,7 @@ export function Story({ story, onReturnToMenu }: StoryProps) {
     } else {
       // Reset to beginning if at last scene
       setCurrentSceneIndex(0);
-      setIsPaused(true);
+      // setIsPaused(true);
     }
   };
 
@@ -135,6 +135,14 @@ export function Story({ story, onReturnToMenu }: StoryProps) {
     }
   };
 
+  const onStepChange = useCallback(
+    (_currentStep: number, _totalSteps: number) => {
+      setCurrentStep(_currentStep);
+      setTotalSteps(_totalSteps);
+    },
+    [setCurrentStep, setTotalSteps]
+  );
+
   return (
     <Layout>
       <div
@@ -143,16 +151,24 @@ export function Story({ story, onReturnToMenu }: StoryProps) {
         onKeyDown={handleKeyDown}
       >
         {/* Return to Menu Button */}
-        <motion.button
-          className="absolute top-4 left-4 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-gray-100 shadow-lg z-50"
-          onClick={onReturnToMenu}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          whileHover={{ scale: 1.05 }}
-          aria-label="Return to menu"
+        <motion.div
+          className="absolute top-4 left-4 flex flex-row items-center gap-2"
+          style={{ fontFamily: "var(--font-libre)" }}
         >
-          <HomeIcon className="w-6 h-6 text-gray-700" />
-        </motion.button>
+          <motion.button
+            className="p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-gray-100 shadow-lg z-50"
+            onClick={onReturnToMenu}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            whileHover={{ scale: 1.05 }}
+            aria-label="Return to menu"
+          >
+            <HomeIcon className="w-6 h-6 text-gray-700" />
+          </motion.button>
+          <div className="text-gray-700">{story?.title ?? ""}</div>
+          <div className="text-gray-300">|</div>
+          <div className="text-gray-700">{currentScene?.title ?? ""}</div>
+        </motion.div>
 
         {/* Auto-advance toggle */}
         <motion.button
@@ -191,84 +207,100 @@ export function Story({ story, onReturnToMenu }: StoryProps) {
                 onComplete={handleSceneComplete}
                 isPaused={isPaused}
                 autoAdvance={autoAdvance}
-                onStepChange={(currentStep, totalSteps) => {
-                  setCurrentStep(currentStep);
-                  setTotalSteps(totalSteps);
-                }}
+                onStepChange={onStepChange}
               />
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Story Controls */}
-        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex items-center gap-4 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-          {/* Previous Scene */}
-          <button
-            onClick={handlePreviousScene}
-            disabled={currentSceneIndex === 0}
-            className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-            aria-label="Previous scene"
-          >
-            <ChevronDoubleLeftIcon className="w-6 h-6 text-gray-700" />
-          </button>
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
+          <div className=" flex items-center gap-4 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+            {/* Previous Scene */}
+            <button
+              onClick={handlePreviousScene}
+              disabled={currentSceneIndex === 0}
+              className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Previous scene"
+            >
+              <ChevronDoubleLeftIcon className="w-6 h-6 text-gray-700" />
+            </button>
 
-          {/* Previous Step */}
-          <button
-            onClick={handlePreviousStep}
-            disabled={currentStep <= 0}
-            className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-            aria-label="Previous step"
-          >
-            <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
-          </button>
+            {/* Previous Step */}
+            <button
+              onClick={handlePreviousStep}
+              disabled={currentStep <= 0}
+              className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Previous step"
+            >
+              <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
+            </button>
 
-          {/* Play/Pause */}
-          <button
-            onClick={() => setIsPaused((prev) => !prev)}
-            className="p-2 rounded-full hover:bg-gray-100"
-            aria-label={isPaused ? "Play scene" : "Pause scene"}
-          >
-            {isPaused ? (
-              <PlayIcon className="w-6 h-6 text-gray-700" />
-            ) : (
-              <PauseIcon className="w-6 h-6 text-gray-700" />
-            )}
-          </button>
+            {/* Play/Pause */}
+            {/* <button
+              onClick={() => setIsPaused((prev) => !prev)}
+              className="p-2 rounded-full hover:bg-gray-100"
+              aria-label={isPaused ? "Play scene" : "Pause scene"}
+            >
+              {isPaused ? (
+                <PlayIcon className="w-6 h-6 text-gray-700" />
+              ) : (
+                <PauseIcon className="w-6 h-6 text-gray-700" />
+              )}
+            </button> */}
 
-          {/* Next Step */}
-          <button
-            onClick={handleNextStep}
-            disabled={currentStep >= totalSteps - 1}
-            className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-            aria-label="Next step"
-          >
-            <ChevronRightIcon className="w-6 h-6 text-gray-700" />
-          </button>
+            <div className="flex flex-col items-center gap-1">
+              {/* Progress bar */}
+              <div className="flex gap-1">
+                {story.scenes.map((scene, index) => (
+                  <div
+                    key={`scene-${scene.title}-${index}`}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      index === currentSceneIndex
+                        ? "bg-blue-500"
+                        : index < currentSceneIndex
+                        ? "bg-blue-200"
+                        : "bg-gray-200"
+                    }`}
+                  />
+                ))}
+              </div>
 
-          {/* Next Scene */}
-          <button
-            onClick={handleNextScene}
-            className="p-2 rounded-full hover:bg-gray-100"
-            aria-label="Next scene"
-          >
-            <ChevronDoubleRightIcon className="w-6 h-6 text-gray-700" />
-          </button>
-        </div>
+              <div className="flex gap-1.5">
+                {currentScene.interactions.map((_, index) => (
+                  <div
+                    key={`step-${index}`}
+                    className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                      index === currentStep
+                        ? "bg-blue-500"
+                        : index < currentStep
+                        ? "bg-blue-200"
+                        : "bg-gray-200"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
 
-        {/* Progress bar */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-          {story.scenes.map((scene, index) => (
-            <div
-              key={scene.title}
-              className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                index === currentSceneIndex
-                  ? "bg-blue-500"
-                  : index < currentSceneIndex
-                  ? "bg-blue-200"
-                  : "bg-gray-200"
-              }`}
-            />
-          ))}
+            {/* Next Step */}
+            <button
+              onClick={handleNextStep}
+              disabled={currentStep >= totalSteps - 1}
+              className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Next step"
+            >
+              <ChevronRightIcon className="w-6 h-6 text-gray-700" />
+            </button>
+
+            {/* Next Scene */}
+            <button
+              onClick={handleNextScene}
+              className="p-2 rounded-full hover:bg-gray-100"
+              aria-label="Next scene"
+            >
+              <ChevronDoubleRightIcon className="w-6 h-6 text-gray-700" />
+            </button>
+          </div>
         </div>
       </div>
     </Layout>

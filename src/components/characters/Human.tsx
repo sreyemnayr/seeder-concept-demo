@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { HumanCharacterProps } from "@/types/character";
 import { HumaaanBodyPartProps } from "./body-parts/types";
 import { useMemo } from "react";
+import { useIsLandscape } from "@/hooks/useMediaQuery";
 import dynamic from "next/dynamic";
 
 const DEFAULT_WIDTH = 380;
@@ -198,6 +199,7 @@ export function Human({
   name,
   role,
 }: HumanCharacterProps) {
+  const landscape = useIsLandscape();
   // Generate random values for undefined props
   posture = useMemo(
     () => posture ?? getRandomItem(["standing", "sitting"]),
@@ -242,14 +244,21 @@ export function Human({
         opacity: isActive ? 1 : 0.1,
         transform: `scale(${
           flip ? -1 * (isActive ? 1 : 0.8) : 1 * (isActive ? 1 : 0.8)
-        }, ${isActive ? 1 : 0.8})`,
+        }, ${isActive ? 1 : 0.9})`,
       }}
     >
       {/* SVG Container */}
       <div
         className={`absolute ${
           position === "left" ? "left-6" : "right-6"
-        } h-[80vh] top-1/2 -translate-y-1/2 `}
+        } h-[80vh] ${
+          landscape
+            ? "top-1/2 -translate-y-1/2"
+            : position === "left"
+            ? "top-0 translate-y-1/2"
+            : "top-0 translate-y-1/2"
+          //: "bottom-0 -translate-y-1/2"
+        } `}
       >
         <svg
           width="100%"
@@ -303,7 +312,7 @@ export function Human({
       </div>
       {/* Character Label */}
       <div
-        className={`absolute left-1/8 bottom-1/12 *:flex flex-row items-center text-[2em]  `}
+        className={`absolute left-1/8 bottom-0 flex flex-row items-center text-[1.5rem]  `}
         style={{
           transform: `scale(${
             flip ? -1 * (isActive ? 1 : 0.8) : 1 * (isActive ? 1 : 0.8)
@@ -312,9 +321,7 @@ export function Human({
       >
         <div className="font-medium text-gray-900">{name}</div>
         {role && (
-          <div className="text-[0.6em] text-gray-400 first-letter:uppercase -mt-4">
-            ({role})
-          </div>
+          <div className="text-[0.8rem] text-gray-400 mt-2 ml-1">({role})</div>
         )}
       </div>
     </motion.div>

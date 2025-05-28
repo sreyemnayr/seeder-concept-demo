@@ -31,3 +31,11 @@ export interface Story {
   characters: Character[];
   scenes: Scene[];
 }
+
+export interface ChatMessage {
+  text: string;
+  direction: "left" | "right";
+  isNew: boolean;
+  type?: "speak" | "think";
+  character?: string;
+}
